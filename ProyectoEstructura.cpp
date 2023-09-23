@@ -59,14 +59,35 @@ void stackMenu() {
                 stack->push(currentSymbol);
                 break;
             case 2:
+                if (!stack->isEmpty()) {
+                    currentSymbol = stack->pop();
+                    cout << "\nEl siguiente símbolo salio de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+                    delete currentSymbol;
+                }
+                else {
+                    cout << "\nNo hay nada que sacar de la pila\n";
+                }
                 break;
             case 3:
+                if (!stack->isEmpty()) {
+                    currentSymbol = stack->top();
+                    cout << "\nEl siguiente símbolo esta a la cima de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+                }
+                else {
+                    cout << "\nNo hay nada en la pila\n";
+                }
                 break;
             case 4:
+                if (stack->isEmpty()) cout << "\nEstá vacia\n";
+                else cout << "\nNo esta Vacia\n";
                 break;
             case 5:
+                cout << "\nImpresión de elementos: \n";
+                stack->print();
                 break;
             case 6:
+                stack->clear();
+                cout << "\nLos elementos de la lista han sido borrados\n";
                 break;
             }
         }

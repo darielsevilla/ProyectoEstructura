@@ -6,22 +6,23 @@
 #include "LinkedQueue.h"
 #include "Simbolo.h"
 #include "ArrayList.h"
+#include "ArrayStack.h"
 
 void stackMenu() {
     int opcion = 0;
     TDAPila* stack = NULL;
     //eleccion de tipo de pila
     do {
-        string eleccion = "\nMenu Tipo de Pila\n 1. Trabajar con ArrayStack\n 2. Trabajar con LinkedStack\n 3. Volver a menu principal\nIngrese opcion: ";
+        string eleccion = "\nMenú Tipo de Pila\n 1. Trabajar con ArrayStack\n 2. Trabajar con LinkedStack\n 3. Volver a menú principal\nIngrese opción: ";
         while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
             cin.clear();
-            cout << "\n*Ingrese opcion valida*\n";
+            cout << "\n*Ingrese opción valida*\n";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
 
         //eleccion de stack
         if (opcion == 1)
-            stack = new LinkedStack();
+            stack = new ArrayStack();
         else if (opcion == 2)
             stack = new LinkedStack();
         
@@ -36,7 +37,7 @@ void stackMenu() {
             sub += " 5. Imprimir elementos\n";
             sub += " 6. Borrar todos los elementos\n";
             sub += " 7. Regresar al Menú anterior\n";
-            sub += "Ingrese opcion: ";
+            sub += "Ingrese opción: ";
            
             //validacion subMenu
             do {

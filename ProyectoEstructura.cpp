@@ -7,7 +7,9 @@
 #include "Simbolo.h"
 #include "ArrayList.h"
 #include "ArrayStack.h"
+#include "ArrayQueue.h"
 
+//stackmenu() -> metodo void que corre las operaciones del menu de pilas
 void stackMenu() {
     int opcion = 0;
     TDAPila* stack = NULL;
@@ -54,6 +56,7 @@ void stackMenu() {
                 //operaciones de pilas
                 switch (menu) {
                 case 1:
+                    //ingresamiento de un caracter o simbolo (validado de que solo sea 1)
                     while (cout << "\nIngrese un simbolo para agregar a la pila: " && cin >> validacionDeSimbolo && validacionDeSimbolo.size() > 1) {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -63,6 +66,7 @@ void stackMenu() {
                     stack->push(currentSymbol);
                     break;
                 case 2:
+                    //saca al ultimo elemento ingresado a la pila (validado para que imprima un mensaje diferente si la pila esta vacia)
                     if (!stack->isEmpty()) {
                         currentSymbol = stack->pop();
                         cout << "\nEl siguiente símbolo salio de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
@@ -73,6 +77,7 @@ void stackMenu() {
                     }
                     break;
                 case 3:
+                    //si existe, revisa el siguiente elemento a salir de la stack, sin sacarlo
                     if (!stack->isEmpty()) {
                         currentSymbol = stack->top();
                         cout << "\nEl siguiente símbolo esta a la cima de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
@@ -82,10 +87,12 @@ void stackMenu() {
                     }
                     break;
                 case 4:
+                    //verificaciond e si esta vacia o no
                     if (stack->isEmpty()) cout << "\nEstá vacia\n";
                     else cout << "\nNo esta Vacia\n";
                     break;
                 case 5:
+                    //impresion de los elementos de la stack
                     if (!stack->isEmpty()) {
                         cout << "\nImpresión de elementos: \n";
                         stack->print();
@@ -95,6 +102,7 @@ void stackMenu() {
                     }
                     break;
                 case 6:
+                    //vaciar la stack
                     stack->clear();
                     cout << "\nLos elementos de la lista han sido borrados\n";
                     break;
@@ -106,6 +114,7 @@ void stackMenu() {
         
     } while (opcion != 3);
 }
+
 int main()
 {
     setlocale(LC_ALL, "spanish");

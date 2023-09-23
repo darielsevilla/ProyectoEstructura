@@ -13,6 +13,7 @@ void ArrayStack::push(Object* obj) {
 
 Object* ArrayStack::top() {
 	if (size) return array[size - 1];
+	return NULL;
 }
 
 Object* ArrayStack::pop() {
@@ -21,6 +22,9 @@ Object* ArrayStack::pop() {
 		Object* retorno = array[size];
 		array[size] = NULL;
 		return retorno;
+	}
+	else {
+		return NULL;
 	}
 }
 

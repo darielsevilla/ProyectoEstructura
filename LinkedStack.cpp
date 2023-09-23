@@ -18,11 +18,8 @@ void LinkedStack::push(Object* obj) {
 Object* LinkedStack::pop() {
 	if (size) {
 		Node* retorno = topNode;
-		Object* ptr = NULL;
-		if (dynamic_cast<Integer*>(topNode->getObj())) {
-			ptr = new Integer();
-			ptr->copy(topNode->getObj());
-		}
+		Object* ptr = topNode->getObj()->copy();
+		
 		topNode = topNode->getNext();
 		topNode->setPrior(NULL);
 		retorno->setNext(NULL);

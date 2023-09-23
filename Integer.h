@@ -7,7 +7,7 @@ public:
     int elemento;
     virtual string toString() override;
     virtual bool equals(Object*) override;
-    virtual void copy(Object*) override;
+    virtual Object* copy() override;
     Integer(int x = 0);
     
 };

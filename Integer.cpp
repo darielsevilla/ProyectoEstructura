@@ -13,7 +13,7 @@ string Integer::toString() {
 	return to_string(elemento);
 }
 
-void Integer::copy(Object* obj) {
-	if (dynamic_cast<Integer*>(obj))
-		this->elemento = dynamic_cast<Integer*>(obj)->elemento;
+Object* Integer::copy() {
+	Object* temporal = new Integer(elemento);
+	return temporal;
 }

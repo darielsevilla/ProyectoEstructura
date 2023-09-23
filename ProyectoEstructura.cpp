@@ -1,4 +1,5 @@
 #include <iostream>
+#include <locale.h>
 #include "Node.h"
 #include "LinkedList.h"
 #include "LinkedStack.h"
@@ -35,69 +36,78 @@ void stackMenu() {
             sub += " 5. Imprimir elementos\n";
             sub += " 6. Borrar todos los elementos\n";
             sub += " 7. Regresar al Menú anterior\n";
+            sub += "Ingrese opcion: ";
            
             //validacion subMenu
-            while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 7)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "\n*Ingrese valor valido*\n";
-            }
-
-            //variables necesarias
-            char simbolo;
-            Object* currentSymbol = NULL;
-            string validacionDeSimbolo;
-            //operaciones de pilas
-            switch (menu) {
-            case 1:
-                while (cout << "\nIngrese un simbolo para agregar a la pila: " && cin >> validacionDeSimbolo && validacionDeSimbolo.size() > 1) {
+            do {
+                while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 7)) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "\n*Ingrese solo 1 caracter*\n";
+                    cout << "\n*Ingrese valor valido*\n";
                 }
-                currentSymbol = new Simbolo(validacionDeSimbolo.at(0));
-                stack->push(currentSymbol);
-                break;
-            case 2:
-                if (!stack->isEmpty()) {
-                    currentSymbol = stack->pop();
-                    cout << "\nEl siguiente símbolo salio de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
-                    delete currentSymbol;
+
+                //variables necesarias
+                char simbolo;
+                Object* currentSymbol = NULL;
+                string validacionDeSimbolo;
+                //operaciones de pilas
+                switch (menu) {
+                case 1:
+                    while (cout << "\nIngrese un simbolo para agregar a la pila: " && cin >> validacionDeSimbolo && validacionDeSimbolo.size() > 1) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "\n*Ingrese solo 1 caracter*\n";
+                    }
+                    currentSymbol = new Simbolo(validacionDeSimbolo.at(0));
+                    stack->push(currentSymbol);
+                    break;
+                case 2:
+                    if (!stack->isEmpty()) {
+                        currentSymbol = stack->pop();
+                        cout << "\nEl siguiente símbolo salio de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+                        delete currentSymbol;
+                    }
+                    else {
+                        cout << "\nNo hay nada que sacar de la pila\n";
+                    }
+                    break;
+                case 3:
+                    if (!stack->isEmpty()) {
+                        currentSymbol = stack->top();
+                        cout << "\nEl siguiente símbolo esta a la cima de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+                    }
+                    else {
+                        cout << "\nNo hay nada en la pila\n";
+                    }
+                    break;
+                case 4:
+                    if (stack->isEmpty()) cout << "\nEstá vacia\n";
+                    else cout << "\nNo esta Vacia\n";
+                    break;
+                case 5:
+                    if (!stack->isEmpty()) {
+                        cout << "\nImpresión de elementos: \n";
+                        stack->print();
+                    }
+                    else {
+                        cout << "\nNo hay elementos para imprimir\n";
+                    }
+                    break;
+                case 6:
+                    stack->clear();
+                    cout << "\nLos elementos de la lista han sido borrados\n";
+                    break;
                 }
-                else {
-                    cout << "\nNo hay nada que sacar de la pila\n";
-                }
-                break;
-            case 3:
-                if (!stack->isEmpty()) {
-                    currentSymbol = stack->top();
-                    cout << "\nEl siguiente símbolo esta a la cima de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
-                }
-                else {
-                    cout << "\nNo hay nada en la pila\n";
-                }
-                break;
-            case 4:
-                if (stack->isEmpty()) cout << "\nEstá vacia\n";
-                else cout << "\nNo esta Vacia\n";
-                break;
-            case 5:
-                cout << "\nImpresión de elementos: \n";
-                stack->print();
-                break;
-            case 6:
-                stack->clear();
-                cout << "\nLos elementos de la lista han sido borrados\n";
-                break;
-            }
+            } while (menu != 7);
+            if (stack) delete stack;
         }
         
-        //liberacion de memoria
-        if (stack) delete stack;
+        
     } while (opcion != 3);
 }
 int main()
 {
+    setlocale(LC_ALL, "spanish");
     //validacion de entrada
     int opcion;
     do {

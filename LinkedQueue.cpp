@@ -23,8 +23,8 @@ void LinkedQueue::queue(Object* obj) {
 
 Object* LinkedQueue::dequeue() {
 	if (first) {
-		Object* returnObj = new Integer();
-		returnObj->copy(first->getObj());
+		Object* returnObj = first->getObj()->copy();
+		
 		Node* oldFirst = first;
 		if (first->getPrior()) first = first->getPrior();
 		delete oldFirst;

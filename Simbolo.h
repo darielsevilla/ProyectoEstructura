@@ -8,7 +8,7 @@ public:
 	Simbolo(char caracter = ' ');
 	virtual string toString() override;
 	virtual bool equals(Object*) override;
-	virtual void copy(Object*) override;
+	virtual Object* copy() override;
 	char getCaracter();
 	void setCharacter(char);
 

@@ -29,7 +29,7 @@ bool Simbolo::equals(Object* obj) {
 	return false;
 }
 
-void Simbolo::copy(Object* obj) {
-	if (dynamic_cast<Simbolo*>(obj))
-		this->setCharacter(dynamic_cast<Simbolo*>(obj)->getCaracter());
+Object* Simbolo::copy() {
+	Object* temporal = new Simbolo(caracter);
+	return temporal;
 }

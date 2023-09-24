@@ -1,8 +1,14 @@
 #include "ArrayQueue.h"
+
 ArrayQueue::ArrayQueue() {
+	size = 0;
 	capacidad = 100;
 	array = new Object * [capacidad];
-	size = 0;
+}
+
+ArrayQueue::~ArrayQueue(){
+	this->clear();
+	delete[] array;
 }
 
 void ArrayQueue::queue(Object* obj) {
@@ -10,6 +16,8 @@ void ArrayQueue::queue(Object* obj) {
 	array[size] = obj;
 	size++;
 }
+
+
 
 Object* ArrayQueue::dequeue() {
 	if (size) {

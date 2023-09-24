@@ -6,10 +6,6 @@ ArrayQueue::ArrayQueue() {
 	array = new Object * [capacidad];
 }
 
-ArrayQueue::~ArrayQueue(){
-	this->clear();
-	delete[] array;
-}
 
 void ArrayQueue::queue(Object* obj) {
 	if (size + 1 == capacidad) resize();

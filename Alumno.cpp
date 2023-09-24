@@ -7,7 +7,7 @@ using namespace std;
 Alumno::Alumno() {
 }
 
-Alumno::Alumno(string name, string account) {
+Alumno::Alumno(string name,string account) {
 	this->Nombre = name;
 	this->Cuenta = account;
 }
@@ -21,7 +21,7 @@ Alumno::~Alumno() {
 string Alumno::toString() {
 	//String de Información Completa del Alumno
 	string info_Alumno;
-	info_Alumno = "Nombre: " + this->Nombre + ", Numero de Cuenta: " + to_string(Cuenta);
+	info_Alumno = "Nombre: " + this->Nombre + ", Numero de Cuenta: " + this->Cuenta;
 
 	return info_Alumno;
 }
@@ -37,4 +37,8 @@ bool Alumno::equals(Object* Object_Compare) {
 		}
 	}
 	return false;
+}
+
+Object* Alumno::copy() {
+	return NULL;
 }

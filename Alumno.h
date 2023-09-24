@@ -9,7 +9,7 @@ class Alumno : public Object {
 
 private:
 	string Nombre;
-	int Cuenta;
+	string Cuenta;
 
 public:
 	Alumno(); // Constructor Vacio

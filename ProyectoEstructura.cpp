@@ -11,6 +11,16 @@
 #include "ArrayQueue.h"
 #include "Alumno.h"
 
+//Revisa que los valores sea solamente numeros
+bool isNumber(string recibido) {
+	for (char c : recibido) {
+		if (!isdigit(c)) {
+			return false;
+		}
+	}
+	return true;
+}
+
 void listsMenu() {
 	int opcion = 0;
 	Lista* list = NULL;
@@ -55,8 +65,6 @@ void listsMenu() {
 
 				switch (menu)
 				{
-
-
 				case 1: {
 					string nombreAlumno;
 					string cuentaAlumno;
@@ -67,6 +75,13 @@ void listsMenu() {
 
 					cout << "Ingrese el numero de cuenta del estudiante: " << endl;
 					cin >> cuentaAlumno;
+
+					while (!isNumber(cuentaAlumno))
+					{
+						cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+						cout << "Ingrese el Número de Cuenta del Alumno: ";
+						cin >> cuentaAlumno;
+					}
 
 					estudiante = new Alumno(nombreAlumno, cuentaAlumno);
 
@@ -79,11 +94,45 @@ void listsMenu() {
 				}//Imprimir Elementos
 					  break;
 				case 3: {
+					if (list->isEmpty())
+					{
+						cout << "No se pueden buscar alumnos debido a que la lista se encuentra vacia" << endl;
+					}
+					else {
+						printf("\n");
+						cout << "Ingrese el numero de cuenta que desea buscar: " << endl;
+						string strCuenta;
+						cin >> strCuenta;
 
+						while (!isNumber(strCuenta))
+						{
+							cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+							cout << "Ingrese el Número de Cuenta del Alumno: ";
+							cin >> strCuenta;
+						}
+
+						int posicionBuscar = list->localiza(new Alumno("", strCuenta));
+						if (posicionBuscar > 0 && posicionBuscar <= list->size)
+						{
+							cout << "Alumno encontrado" << endl;
+							cout << list->recupera(posicionBuscar)->toString() << " Está en la Posición " << posicionBuscar << "." << endl;
+						}
+					}
 				}//Buscar Elemento
 					  break;
 				case 4: {
+					int posAEliminar =0;
+					cout << "Ingrese la posicion que desea eliminar: " << endl;
+					cin >> posAEliminar;
 
+					if (posAEliminar > 0 && posAEliminar <= list->size)
+					{
+						list->suprime(posAEliminar);
+						cout << "Alumno eliminado correctamente" << endl;
+					}
+					else {
+						cout << "Posicion fuera del rango" << endl;
+					}
 				}//Borrar Elemento
 					  break;
 				case 5: {
@@ -94,7 +143,7 @@ void listsMenu() {
 				}//Ver si la lista esta vacia
 					  break;
 				case 6: {
-					cout << "Ingrese la posicion que desea conseguir elemento: " << endl;
+					cout << "Ingrese la posicion en la que desea conseguir el elemento: " << endl;
 					int posicionElemento;
 					cin >> posicionElemento;
 
@@ -112,16 +161,50 @@ void listsMenu() {
 				}//Obtener elementos por posicion
 					  break;
 				case 7: {
+					cout << "Ingrese la posicion en la que desea conseguir el elemento siguiente: " << endl;
+					int posicionElemento;
+					cin >> posicionElemento;
 
+
+					if (posicionElemento > 0 && posicionElemento + 1 <= list->size)
+					{
+						estudiante = new Alumno();
+						estudiante = list->siguiente(posicionElemento);
+
+						cout << estudiante->toString();
+					}
+					else {
+						cout << "Posicion fuera del rango" << endl;
+					}
 				}//Obtener siguiente
 					  break;
 				case 8: {
+					cout << "Ingrese la posicion en la que desea conseguir el elemento siguiente: " << endl;
+					int posicionElemento;
+					cin >> posicionElemento;
 
+
+					if (posicionElemento - 1 > 0 && posicionElemento <= list->size)
+					{
+						estudiante = new Alumno();
+						estudiante = list->anterior(posicionElemento);
+
+						cout << estudiante->toString();
+					}
+					else {
+						cout << "Posicion fuera del rango" << endl;
+					}
 				}//Obtener anterior
 					  break;
 				case 9: {
-					list->anula();
-					cout << "Se ha eliminado la lista" << endl;
+					if (!list->isEmpty())
+					{
+						list->anula();
+						cout << "Se ha eliminado la lista" << endl;
+					}
+					else {
+						cout << "La lista ya se encuentra vacia" << endl;
+					}
 				}//Borrar todos los elementos(Anula)
 					  break;
 				}
@@ -236,15 +319,7 @@ void stackMenu() {
 	} while (opcion != 3);
 }
 
-//Revisa que los valores sea solamente numeros
-bool isNumber(string recibido) {
-	for (char c : recibido) {
-		if (!isdigit(c)) {
-			return false;
-		}
-	}
-	return true;
-}
+
 
 
 void queuesMenu() {
@@ -423,6 +498,7 @@ int main() {
 		//entrada a opciones
 		switch (opcion) {
 		case 1:
+			listsMenu();
 			//menu de opcion de listas
 			break;
 		case 2:
@@ -430,6 +506,7 @@ int main() {
 			stackMenu();
 			break;
 		case 3:
+			queuesMenu();
 			//menu de opcion de colas
 			break;
 		}

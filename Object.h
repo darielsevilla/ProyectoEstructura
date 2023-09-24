@@ -7,6 +7,6 @@ class Object{
 public:    
 	virtual bool equals(Object*) = 0;
 	virtual string toString() = 0;
-	virtual Object* copy() override;
+	virtual Object* copy() = 0;
 };
 

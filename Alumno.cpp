@@ -7,7 +7,7 @@ using namespace std;
 Alumno::Alumno() {
 }
 
-Alumno::Alumno(string name, int account) {
+Alumno::Alumno(string name, string account) {
 	this->Nombre = name;
 	this->Cuenta = account;
 }

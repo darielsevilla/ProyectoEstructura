@@ -13,8 +13,9 @@ private:
 
 public:
 	Alumno(); // Constructor Vacio
-	Alumno(string, int); // Constructor Sobrecargado
+	Alumno(string, string); // Constructor Sobrecargado
 	~Alumno(); // Destructor
-	virtual string toString(); // Todo a ToString
-	virtual bool equals(Object*); // Encontrar Alumnos iguales
+	virtual string toString() override; // Todo a ToString
+	virtual bool equals(Object*) override; // Encontrar Alumnos iguales
+	virtual Object* copy() override;
 };

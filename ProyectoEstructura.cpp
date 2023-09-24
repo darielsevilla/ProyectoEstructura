@@ -205,6 +205,17 @@ void stackMenu() {
 	} while (opcion != 3);
 }
 
+//Revisa que los valores sea solamente numeros
+bool isNumber(string recibido) {
+	for (char c : recibido) {
+		if (!isdigit(c)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
 void queuesMenu() {
 	int opcionMenu = 0;
 	TDACola* queue = NULL;
@@ -234,7 +245,7 @@ void queuesMenu() {
 		}
 			  break;
 		}
-		
+
 		int opcion;
 		int num;
 		cout << endl
@@ -255,20 +266,48 @@ void queuesMenu() {
 				//Valida hasta que se ingrese un valor válido
 				cout << endl
 					<< "ERROR - 404"
-					<< "Ingrese un Valor de Menu Valido " << endl
+					<< "Ingrese un Valor de Menu Válido..." << endl
 					<< "Ingrese una opcion: ";
 				cin >> opcion;
 			}
 		}
 		else {//Entra al menú de opciones de Queue
+			Object* student = new Alumno();
+			string Nombre = "";
+			string Cuenta;
+
 			switch (opcion) {
 			case 1: { //Encolar (Queue)
+				cin.ignore();
+				cout << "Ingrese el nombre del alumno: ";
+				cin >> Nombre;
 
+				cout << "Ingrese el numero de cuenta del alumno: ";
+				cin >> Cuenta;
+
+				while (!isNumber(Cuenta)) {
+					cout << endl << "ERROR - 404"
+						<< "Ingrese un Número de Cuenta Válido..." << endl
+						<< endl;
+
+					cout << "Ingrese el Número de Cuenta del Alumno: ";
+					cin >> Cuenta;
+				}
+
+				queue->queue(new Alumno(Nombre, stoi(Cuenta)));
+				cout << "Alumno encolado correctamente" << endl;
 			}
 				  break;
 
 			case 2: { //Desencolar (Dequeue)
-
+				if (queue->isEmpty()) {
+					cout << "La Cola está vacia" << endl
+						<< "No Hay Nada Que Sacar..." << endl;
+				}
+				else {
+					cout << "El Alumno sacado de la cola es : " << queue->dequeue()->toString() << endl;
+				}
+				break;
 			}
 				  break;
 

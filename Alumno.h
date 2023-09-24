@@ -12,7 +12,8 @@ private:
 	int Cuenta;
 
 public:
-	Alumno(string, int); // Constructor
+	Alumno(); // Constructor Vacio
+	Alumno(string, int); // Constructor Sobrecargado
 	~Alumno(); // Destructor
 	virtual string toString(); // Todo a ToString
 	virtual bool equals(Object*); // Encontrar Alumnos iguales

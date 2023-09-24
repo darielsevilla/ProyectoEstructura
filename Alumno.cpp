@@ -4,6 +4,9 @@
 using namespace std;
 
 // Constructor
+Alumno::Alumno() {
+}
+
 Alumno::Alumno(string name, int account) {
 	this->Nombre = name;
 	this->Cuenta = account;
@@ -26,10 +29,12 @@ string Alumno::toString() {
 // Comparación de Alumnos
 bool Alumno::equals(Object* Object_Compare) {
 	Alumno* Alumno_Compare = dynamic_cast<Alumno*>(Object_Compare);
-	if (Alumno_Compare->Cuenta == this->Cuenta) {
-		return true;
+	// Verificar si la conversión a Alumno fue exitosa
+	if (Alumno_Compare != nullptr) {
+		// Comparar los números de cuenta de los alumnos
+		if (Alumno_Compare->Cuenta == this->Cuenta) {
+			return true;
+		}
 	}
-	else {
-		return false;
-	}
+	return false;
 }

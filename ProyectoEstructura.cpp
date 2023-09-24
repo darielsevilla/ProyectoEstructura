@@ -4,6 +4,7 @@
 #include "LinkedList.h"
 #include "LinkedStack.h"
 #include "LinkedQueue.h"
+#include "CircularQueue.h"
 #include "Simbolo.h"
 #include "ArrayList.h"
 #include "ArrayStack.h"
@@ -208,9 +209,9 @@ void queuesMenu() {
 	int opcionMenu = 0;
 	TDACola* queue = NULL;
 
-	while (opcionMenu != 3) {
-		string eleccion = "\nMENÚ TIPO DE COLA\n 1. Trabajar con ArrayQueue\n 2. Trabajar con LinkedQueue\n 3. Volver a menú principal\nIngrese opción: ";
-		while (cout << eleccion && (!(cin >> opcionMenu) || (opcionMenu < 1 || opcionMenu > 3))) {
+	while (opcionMenu != 4) {
+		string eleccion = "\nMENÚ TIPO DE COLA\n 1. Trabajar con ArrayQueue\n 2. Trabajar con LinkedQueue\n 3.Trabajar con LinkedQueue\n 4. Volver a menú principal\nIngrese opción: ";
+		while (cout << eleccion && (!(cin >> opcionMenu) || (opcionMenu < 1 || opcionMenu > 4))) {
 			cin.clear();
 			cout << "\nERROR - 404";
 			cout << "\nIngrese opción valida...\n";
@@ -225,6 +226,11 @@ void queuesMenu() {
 
 		case 2: {
 			queue = new LinkedQueue();
+		}
+			  break;
+
+		case 3: {
+			queue = new CircularQueue();
 		}
 			  break;
 		}

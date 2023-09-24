@@ -8,7 +8,93 @@
 #include "ArrayList.h"
 #include "ArrayStack.h"
 #include "ArrayQueue.h"
+void listsMenu() {
+    int opcion = 0;
+    Lista* list = NULL;
+    while (opcion != 3)
+    {
+        string eleccion = "\nMenú Tipo de Lista\n 1. Trabajar con ArrayList\n 2. Trabajar con Linked List\n 3. Volver a menú principal\nIngrese opción: ";
+        while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
+            cin.clear();
+            cout << "\n*Ingrese opción valida*\n";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
 
+        if (opcion == 1)
+            list = new ArrayList();
+        else if (opcion == 2)
+            list = new LinkedList();
+
+        //sub menu de opciones
+        if (opcion != 3) {
+            int menu = 0;
+            string sub = "\nOperaciones de Listas:\n";
+            sub += " 1. \Insertar Elemento\n";
+            sub += " 2. \Imprimir Elementos\n";
+            sub += " 3. Buscar Elemento\n";
+            sub += " 4. Borrar Elemento\n";
+            sub += " 5. Ver si está vacía\n";
+            sub += " 6. Obtener Elemento por Posición\n";
+            sub += " 7. Obtener Siguiente\n";
+            sub += " 8. Obtener Anterior\n";
+            sub += " 9. Borrar todos los Elementos (Anula)\n";
+            sub += " 10. Regresar al Menú Anterior\n";
+            sub += "Ingrese opción: ";
+
+            do {
+                while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "\n*Ingrese valor valido*\n";
+                }
+
+                switch (menu)
+                {
+                case 1: {
+                    cout << "Ingrese el elemento que desea agregar: ";
+                    Object* elemento = NULL;
+                    cout << "Ingrese la posición en la que desea agregar: ";
+                    int posicion;
+
+                }
+                      break;
+                case 2: {
+
+                }
+                      break;
+                case 3: {
+
+                }
+                      break;
+                case 4: {
+
+                }
+                      break;
+                case 5: {
+
+                }
+                      break;
+                case 6: {
+
+                }
+                      break;
+                case 7: {
+
+                }
+                      break;
+                case 8: {
+
+                }
+                      break;
+                case 9: {
+
+                }
+                      break;
+                }
+            } while (menu != 10);
+        }
+    }//Llave while tipo de lista
+}//Llave metodo
 //stackmenu() -> metodo void que corre las operaciones del menu de pilas
 void stackMenu() {
     int opcion = 0;

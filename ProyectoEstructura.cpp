@@ -12,122 +12,122 @@
 #include "Alumno.h"
 
 void listsMenu() {
-    int opcion = 0;
-    Lista* list = NULL;
-    while (opcion!= 3)
-    {
-        string eleccion = "\nMenú Tipo de Lista\n 1. Trabajar con ArrayList\n 2. Trabajar con Linked List\n 3. Volver a menú principal\nIngrese opción: ";
-        while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
-            cin.clear();
-            cout << "\n*Ingrese opción valida*\n";
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
+	int opcion = 0;
+	Lista* list = NULL;
+	while (opcion != 3)
+	{
+		string eleccion = "\nMenú Tipo de Lista\n 1. Trabajar con ArrayList\n 2. Trabajar con Linked List\n 3. Volver a menú principal\nIngrese opción: ";
+		while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
+			cin.clear();
+			cout << "\n*Ingrese opción valida*\n";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
 
-        if (opcion == 1)
-            list = new ArrayList();
-        else if (opcion == 2)
-            list = new LinkedList();
+		if (opcion == 1)
+			list = new ArrayList();
+		else if (opcion == 2)
+			list = new LinkedList();
 
-        //sub menu de opciones
-        if (opcion != 3) {
-            int menu =0;
-            string sub = "\nOperaciones de Listas:\n";
-            sub += " 1. \Insertar Elemento\n";
-            sub += " 2. \Imprimir Elementos\n";
-            sub += " 3. Buscar Elemento\n";
-            sub += " 4. Borrar Elemento\n";
-            sub += " 5. Ver si está vacía\n";
-            sub += " 6. Obtener Elemento por Posición\n";
-            sub += " 7. Obtener Siguiente\n";
-            sub += " 8. Obtener Anterior\n";
-            sub += " 9. Borrar todos los Elementos (Anula)\n";
-            sub += " 10. Regresar al Menú Anterior\n";
-            sub += "Ingrese opción: ";
+		//sub menu de opciones
+		if (opcion != 3) {
+			int menu = 0;
+			string sub = "\nOperaciones de Listas:\n";
+			sub += " 1. \Insertar Elemento\n";
+			sub += " 2. \Imprimir Elementos\n";
+			sub += " 3. Buscar Elemento\n";
+			sub += " 4. Borrar Elemento\n";
+			sub += " 5. Ver si está vacía\n";
+			sub += " 6. Obtener Elemento por Posición\n";
+			sub += " 7. Obtener Siguiente\n";
+			sub += " 8. Obtener Anterior\n";
+			sub += " 9. Borrar todos los Elementos (Anula)\n";
+			sub += " 10. Regresar al Menú Anterior\n";
+			sub += "Ingrese opción: ";
 
-            do {
-                while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "\n*Ingrese valor valido*\n";
-                }
+			do {
+				while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cout << "\n*Ingrese valor valido*\n";
+				}
 
-                Object* estudiante = NULL;
+				Object* estudiante = NULL;
 
-                switch (menu)
-                {
-                
-                    
-                case 1: {
-                    string nombreAlumno;
-                    string cuentaAlumno;
-                    cin.clear();
-                    cin.ignore();
-                    cout << "Ingrese el nombre del estudiante: " << endl;
-                    getline(cin, nombreAlumno);
+				switch (menu)
+				{
 
-                    cout << "Ingrese el numero de cuenta del estudiante: " << endl;
-                    cin >> cuentaAlumno;
 
-                    estudiante = new Alumno(nombreAlumno, cuentaAlumno);
+				case 1: {
+					string nombreAlumno;
+					string cuentaAlumno;
+					cin.clear();
+					cin.ignore();
+					cout << "Ingrese el nombre del estudiante: " << endl;
+					getline(cin, nombreAlumno);
 
-                    list->append(estudiante);
-                    cout << "Alumno agregado correctamente" << endl;
-                }//Inserta
-                      break;
-                case 2: {
-                    list->imprime();
-                }//Imprimir Elementos
-                      break;
-                case 3: {
+					cout << "Ingrese el numero de cuenta del estudiante: " << endl;
+					cin >> cuentaAlumno;
 
-                }//Buscar Elemento
-                      break;
-                case 4: {
+					estudiante = new Alumno(nombreAlumno, cuentaAlumno);
 
-                }//Borrar Elemento
-                      break;
-                case 5: {
-                    printf("\n");
-                    if (list->isEmpty()) cout << "La lista se encuentra vacia actualmente" << endl;
-                    else cout << "La lista contiene elementos" << endl;
-                    
-                }//Ver si la lista esta vacia
-                      break;
-                case 6: {
-                    cout << "Ingrese la posicion que desea conseguir elemento: " << endl;
-                    int posicionElemento;
-                    cin >> posicionElemento;
+					list->append(estudiante);
+					cout << "Alumno agregado correctamente" << endl;
+				}//Inserta
+					  break;
+				case 2: {
+					list->imprime();
+				}//Imprimir Elementos
+					  break;
+				case 3: {
 
-                    
-                    if (posicionElemento > 0 && posicionElemento <= list->size)
-                    {
-                        estudiante = new Alumno();
-                        estudiante = list->recupera(posicionElemento);
+				}//Buscar Elemento
+					  break;
+				case 4: {
 
-                        cout << estudiante->toString();
-                    }
-                    else {
-                        cout << "Posicion fuera del rango" << endl;
-                    }
-                }//Obtener elementos por posicion
-                      break;
-                case 7: {
+				}//Borrar Elemento
+					  break;
+				case 5: {
+					printf("\n");
+					if (list->isEmpty()) cout << "La lista se encuentra vacia actualmente" << endl;
+					else cout << "La lista contiene elementos" << endl;
 
-                }//Obtener siguiente
-                      break;
-                case 8: {
+				}//Ver si la lista esta vacia
+					  break;
+				case 6: {
+					cout << "Ingrese la posicion que desea conseguir elemento: " << endl;
+					int posicionElemento;
+					cin >> posicionElemento;
 
-                }//Obtener anterior
-                      break;
-                case 9: {
-                    list->anula();
-                    cout << "Se ha eliminado la lista" << endl;
-                }//Borrar todos los elementos(Anula)
-                      break;
-                }
-            } while (menu != 10);
-        }
-    }//Llave while tipo de lista
+
+					if (posicionElemento > 0 && posicionElemento <= list->size)
+					{
+						estudiante = new Alumno();
+						estudiante = list->recupera(posicionElemento);
+
+						cout << estudiante->toString();
+					}
+					else {
+						cout << "Posicion fuera del rango" << endl;
+					}
+				}//Obtener elementos por posicion
+					  break;
+				case 7: {
+
+				}//Obtener siguiente
+					  break;
+				case 8: {
+
+				}//Obtener anterior
+					  break;
+				case 9: {
+					list->anula();
+					cout << "Se ha eliminado la lista" << endl;
+				}//Borrar todos los elementos(Anula)
+					  break;
+				}
+			} while (menu != 10);
+		}
+	}//Llave while tipo de lista
 }//Llave metodo
 //stackmenu() -> metodo void que corre las operaciones del menu de pilas
 
@@ -325,7 +325,7 @@ void queuesMenu() {
 					cin >> Cuenta;
 				}
 
-				queue->queue(new Alumno(Nombre, stoi(Cuenta)));
+				queue->queue(new Alumno(Nombre, Cuenta));
 				cout << "Alumno encolado correctamente" << endl;
 			}
 				  break;
@@ -338,35 +338,64 @@ void queuesMenu() {
 				else {
 					cout << "El Alumno sacado de la cola es : " << queue->dequeue()->toString() << endl;
 				}
-				break;
 			}
 				  break;
 
 
 			case 3: { //Ver Frente (Peek)
-
+				if (queue->isEmpty()) {
+					cout << "La Cola Está Vacía" << endl;
+				}
+				else {
+					cout << "El elemento al frente de la cola es: " << queue->peek()->toString() << endl;
+				}
 			}
 				  break;
 
 			case 4: { //Vacia
-
+				if (queue->isEmpty()) {
+					cout << "La Cola Está Vacía" << endl;
+				}
+				else {
+					cout << "La Cola Tiene Elementos en Ella" << endl;
+				}
 			}
 				  break;
 
 			case 5: { //Imprimir Elementos
-
+				if (queue->isEmpty()) {
+					cout << "La Cola Está Vacía" << endl;
+				}
+				else {
+					cout << endl
+						<< ">>>>>>>>>>>>> Pila <<<<<<<<<<<<<" << endl;
+					queue->print();
+				}
+				break;
 			}
 				  break;
 
 			case 6: { //Borrar los Elementos
-
+				if (queue->isEmpty()) {
+					cout << "La Cola Está Vacía" << endl;
+				}
+				else {
+					queue->clear();
+					cout << "Elementos han Sido Eliminados EXITOSAMENTE" << endl;
+				}
 			}
 				  break;
 
 			case 7: { //Regresar al Menu Anterior
-
+				cout << "Regresando al Menú Anterior" << endl;
 			}
 				  break;
+
+			default: {
+				cout << "ERROR - 404!" << endl
+					<< "Opcion de Menú Seleccionado NO Válido" << endl
+					<< endl << "Ingrese UNA Opción VÁLIDA";
+			}
 			}
 		}//Fin del menú de opciones de Queue
 	}

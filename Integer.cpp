@@ -3,6 +3,17 @@ Integer::Integer(int x) {
 	this->elemento = x;
 }
 
+// Getter
+int Integer::getElemento() {
+	return elemento;
+}
+
+// Setter
+void Integer::setElemento(int nuevoElemento) {
+	this->elemento = nuevoElemento;
+}
+
+
 bool Integer::equals(Object* obj) {
 	if (dynamic_cast<Integer*>(obj))
 		if (elemento == dynamic_cast<Integer*>(obj)->elemento) return true;

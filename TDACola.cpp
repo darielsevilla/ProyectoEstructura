@@ -8,6 +8,6 @@ int TDACola::getSize() {
 }
 
 bool TDACola::isEmpty() {
-	return (bool)size;
+	return (size  == 0) ? true : false;
 }
 

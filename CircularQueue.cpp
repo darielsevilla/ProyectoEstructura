@@ -4,6 +4,7 @@ CircularQueue::CircularQueue() {
 	array = new Object * [capacidad];
 	primero = -1;
 	ultimo = -1;
+	size = 0;
 }
 
 void CircularQueue::queue(Object* obj) {

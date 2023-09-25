@@ -3,9 +3,9 @@
 #include "Integer.h"
 class Lista
 {
-
-public:
+protected:
 	int size;
+public:
 	//inserta(Object*, int) -> inserta un elemento a la lista en la posicion dada (entre 1 y n+1)
 	virtual bool inserta(Object*, int) = 0;
 	//suprime(int) -> elimina el elemento de la lista en la posicion dada (entre 1 y n)
@@ -19,6 +19,7 @@ public:
 	virtual void append(Object*) = 0;
 	virtual Object* recupera(int) = 0;
 	virtual Lista* localizaTodos(Object*) = 0;
+	int getSize();
 	bool isEmpty() {return size == 0;};
 	virtual void imprime() = 0;
 	virtual void suprimeTodos(Object*) = 0;

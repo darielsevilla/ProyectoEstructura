@@ -18,4 +18,8 @@ public:
 	virtual string toString() override; // Todo a ToString
 	virtual bool equals(Object*) override; // Encontrar Alumnos iguales
 	virtual Object* copy() override;
+	string getNombre();
+	string getCuenta();
+	void setNombre(string);
+	void setCuenta(string);
 };

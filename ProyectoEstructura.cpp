@@ -21,6 +21,19 @@ bool isNumber(string recibido) {
 	return true;
 }
 
+//isRepeat(Lista*, string) -> recibe una lista y una string del numero de cuenta. compara todos los elementos de la lista buscando repeticion
+bool isRepeat(Lista* list, string numeroDeCuenta) {
+	Alumno* temporal = new Alumno("Temporal", numeroDeCuenta);
+	for (int i = 1; i <= list->getSize(); i++) {
+		if (dynamic_cast<Alumno*>(list->recupera(i))->equals(temporal)) {
+			delete temporal;
+			return true;
+		}
+	}
+	delete temporal;
+	return false;
+}
+//listsMenu() -> metodo void que corre las operaciones del menu de listas
 void listsMenu() {
 	int opcion = 0;
 	Lista* list = NULL;
@@ -76,7 +89,7 @@ void listsMenu() {
 					cout << "Ingrese el numero de cuenta del estudiante: " << endl;
 					cin >> cuentaAlumno;
 
-					while (!isNumber(cuentaAlumno))
+					while (!isNumber(cuentaAlumno) || isRepeat(list, cuentaAlumno))
 					{
 						cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
 						cout << "Ingrese el Número de Cuenta del Alumno: ";
@@ -112,7 +125,7 @@ void listsMenu() {
 						}
 
 						int posicionBuscar = list->localiza(new Alumno("", strCuenta));
-						if (posicionBuscar > 0 && posicionBuscar <= list->size)
+						if (posicionBuscar > 0 && posicionBuscar <= list->getSize())
 						{
 							cout << "Alumno encontrado" << endl;
 							cout << list->recupera(posicionBuscar)->toString() << " Está en la Posición " << posicionBuscar << "." << endl;
@@ -121,11 +134,11 @@ void listsMenu() {
 				}//Buscar Elemento
 					  break;
 				case 4: {
-					int posAEliminar =0;
+					int posAEliminar = 0;
 					cout << "Ingrese la posicion que desea eliminar: " << endl;
 					cin >> posAEliminar;
 
-					if (posAEliminar > 0 && posAEliminar <= list->size)
+					if (posAEliminar > 0 && posAEliminar <= list->getSize())
 					{
 						list->suprime(posAEliminar);
 						cout << "Alumno eliminado correctamente" << endl;
@@ -148,7 +161,7 @@ void listsMenu() {
 					cin >> posicionElemento;
 
 
-					if (posicionElemento > 0 && posicionElemento <= list->size)
+					if (posicionElemento > 0 && posicionElemento <= list->getSize())
 					{
 						estudiante = new Alumno();
 						estudiante = list->recupera(posicionElemento);
@@ -166,7 +179,7 @@ void listsMenu() {
 					cin >> posicionElemento;
 
 
-					if (posicionElemento > 0 && posicionElemento + 1 <= list->size)
+					if (posicionElemento > 0 && posicionElemento + 1 <= list->getSize())
 					{
 						estudiante = new Alumno();
 						estudiante = list->siguiente(posicionElemento);
@@ -184,7 +197,7 @@ void listsMenu() {
 					cin >> posicionElemento;
 
 
-					if (posicionElemento - 1 > 0 && posicionElemento <= list->size)
+					if (posicionElemento - 1 > 0 && posicionElemento <= list->getSize())
 					{
 						estudiante = new Alumno();
 						estudiante = list->anterior(posicionElemento);
@@ -320,14 +333,13 @@ void stackMenu() {
 }
 
 
-
-
+//queuesMenu() -> metodo void que corre las operaciones del menu de colas
 void queuesMenu() {
 	int opcionMenu = 0;
 	TDACola* queue = NULL;
 
-	while (opcionMenu != 4) {
-		string eleccion = "\nMENÚ TIPO DE COLA\n 1. Trabajar con ArrayQueue\n 2. Trabajar con LinkedQueue\n 3.Trabajar con LinkedQueue\n 4. Volver a menú principal\nIngrese opción: ";
+	do {
+		string eleccion = "\nMENÚ TIPO DE COLA\n 1. Trabajar con ArrayQueue\n 2. Trabajar con LinkedQueue\n 3. Trabajar con CircularQueue\n 4. Volver a menú principal\nIngrese opción: ";
 		while (cout << eleccion && (!(cin >> opcionMenu) || (opcionMenu < 1 || opcionMenu > 4))) {
 			cin.clear();
 			cout << "\nERROR - 404";
@@ -352,128 +364,124 @@ void queuesMenu() {
 			  break;
 		}
 
-		int opcion;
+		int opcion = -1;
 		int num;
-		cout << endl
-			<< " >> OPERACIONES DE COLAS <<" << endl
-			<< "1. Encolar (Queue)" << endl
-			<< "2. Desencolar (Dequeue)" << endl
-			<< "3. Ver Frente (Peek)" << endl
-			<< "4. Vacia" << endl
-			<< "5. Imprimir Elementos" << endl
-			<< "6. Borrar los Elementos" << endl
-			<< "7. Regresar al Menu Anterior" << endl
-			<< "Ingrese una opcion: ";
-		cin >> opcion;
+		if (opcionMenu != 4) {
+			do {
+				string menuCola = " >> OPERACIONES DE COLAS <<\n";
+				menuCola += "1. Encolar (Queue)\n";
+				menuCola += "2. Desencolar (Dequeue)\n";
+				menuCola += "3. Ver Frente (Peek)\n";
+				menuCola += "4. Vacia\n";
+				menuCola += "6. Borrar los Elementos\n";
+				menuCola += "7. Regresar al Menu Anterior\n";
+				menuCola += "Ingrese una opcion: ";
 
-		if (opcion < 1 || opcion > 7) {
-			//Entra si los valores no estan dentro del rango
-			while (opcion < 1 || opcion > 7) {
-				//Valida hasta que se ingrese un valor válido
-				cout << endl
-					<< "ERROR - 404"
-					<< "Ingrese un Valor de Menu Válido..." << endl
-					<< "Ingrese una opcion: ";
-				cin >> opcion;
-			}
-		}
-		else {//Entra al menú de opciones de Queue
-			Object* student = new Alumno();
-			string Nombre = "";
-			string Cuenta;
-
-			switch (opcion) {
-			case 1: { //Encolar (Queue)
-				cin.ignore();
-				cout << "Ingrese el nombre del alumno: ";
-				cin >> Nombre;
-
-				cout << "Ingrese el numero de cuenta del alumno: ";
-				cin >> Cuenta;
-
-				while (!isNumber(Cuenta)) {
-					cout << endl << "ERROR - 404"
-						<< "Ingrese un Número de Cuenta Válido..." << endl
-						<< endl;
-
-					cout << "Ingrese el Número de Cuenta del Alumno: ";
-					cin >> Cuenta;
-				}
-
-				queue->queue(new Alumno(Nombre, Cuenta));
-				cout << "Alumno encolado correctamente" << endl;
-			}
-				  break;
-
-			case 2: { //Desencolar (Dequeue)
-				if (queue->isEmpty()) {
-					cout << "La Cola está vacia" << endl
-						<< "No Hay Nada Que Sacar..." << endl;
-				}
-				else {
-					cout << "El Alumno sacado de la cola es : " << queue->dequeue()->toString() << endl;
-				}
-			}
-				  break;
-
-
-			case 3: { //Ver Frente (Peek)
-				if (queue->isEmpty()) {
-					cout << "La Cola Está Vacía" << endl;
-				}
-				else {
-					cout << "El elemento al frente de la cola es: " << queue->peek()->toString() << endl;
-				}
-			}
-				  break;
-
-			case 4: { //Vacia
-				if (queue->isEmpty()) {
-					cout << "La Cola Está Vacía" << endl;
-				}
-				else {
-					cout << "La Cola Tiene Elementos en Ella" << endl;
-				}
-			}
-				  break;
-
-			case 5: { //Imprimir Elementos
-				if (queue->isEmpty()) {
-					cout << "La Cola Está Vacía" << endl;
-				}
-				else {
+				while (cout << menuCola && (!(cin >> opcion) || opcion < 1 || opcion > 7)) {
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << endl
-						<< ">>>>>>>>>>>>> Pila <<<<<<<<<<<<<" << endl;
-					queue->print();
-				}
-				break;
-			}
-				  break;
+						<< "ERROR - 404"
+						<< "Ingrese un Valor de Menu Válido..." << endl;
 
-			case 6: { //Borrar los Elementos
-				if (queue->isEmpty()) {
-					cout << "La Cola Está Vacía" << endl;
 				}
-				else {
-					queue->clear();
-					cout << "Elementos han Sido Eliminados EXITOSAMENTE" << endl;
+
+
+
+				Object* student = new Alumno();
+				string Nombre = "";
+				string Cuenta;
+
+				switch (opcion) {
+				case 1: { //Encolar (Queue)
+					cin.ignore();
+					cout << "Ingrese el nombre del alumno: ";
+					cin >> Nombre;
+
+					cout << "Ingrese el numero de cuenta del alumno: ";
+					cin >> Cuenta;
+
+					while (!isNumber(Cuenta)) {
+						cout << endl << "ERROR - 404"
+							<< "Ingrese un Número de Cuenta Válido..." << endl
+							<< endl;
+
+						cout << "Ingrese el Número de Cuenta del Alumno: ";
+						cin >> Cuenta;
+					}
+
+					queue->queue(new Alumno(Nombre, Cuenta));
+					cout << "Alumno encolado correctamente" << endl;
 				}
-			}
-				  break;
+					  break;
 
-			case 7: { //Regresar al Menu Anterior
-				cout << "Regresando al Menú Anterior" << endl;
-			}
-				  break;
+				case 2: { //Desencolar (Dequeue)
+					if (queue->isEmpty()) {
+						cout << "La Cola está vacia" << endl
+							<< "No Hay Nada Que Sacar..." << endl;
+					}
+					else {
+						cout << "El Alumno sacado de la cola es : " << queue->dequeue()->toString() << endl;
+					}
+				}
+					  break;
 
-			default: {
-				cout << "ERROR - 404!" << endl
-					<< "Opcion de Menú Seleccionado NO Válido" << endl
-					<< endl << "Ingrese UNA Opción VÁLIDA";
-			}
-			}
-		}//Fin del menú de opciones de Queue
-	}
+
+				case 3: { //Ver Frente (Peek)
+					if (queue->isEmpty()) {
+						cout << "La Cola Está Vacía" << endl;
+					}
+					else {
+						cout << "El elemento al frente de la cola es: " << queue->peek()->toString() << endl;
+					}
+				}
+					  break;
+
+				case 4: { //Vacia
+					if (queue->isEmpty()) {
+						cout << "La Cola Está Vacía" << endl;
+					}
+					else {
+						cout << "La Cola Tiene Elementos en Ella" << endl;
+					}
+				}
+					  break;
+
+				case 5: { //Imprimir Elementos
+					if (queue->isEmpty()) {
+						cout << "La Cola Está Vacía" << endl;
+					}
+					else {
+						cout << endl
+							<< ">>>>>>>>>>>>> Pila <<<<<<<<<<<<<" << endl;
+						queue->print();
+					}
+					break;
+				}
+					  break;
+
+				case 6: { //Borrar los Elementos
+					if (queue->isEmpty()) {
+						cout << "La Cola Está Vacía" << endl;
+					}
+					else {
+						queue->clear();
+						cout << "Elementos han Sido Eliminados EXITOSAMENTE" << endl;
+					}
+				}
+					  break;
+
+				case 7: { //Regresar al Menu Anterior
+					cout << "Regresando al Menú Anterior" << endl;
+				}
+					  break;
+
+
+				}
+
+			} while (opcion != 7);
+		}
+	}while (opcionMenu != 4);
 }
 
 

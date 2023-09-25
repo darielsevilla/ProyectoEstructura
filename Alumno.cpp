@@ -28,12 +28,14 @@ string Alumno::toString() {
 
 // Comparación de Alumnos
 bool Alumno::equals(Object* Object_Compare) {
-	Alumno* Alumno_Compare = dynamic_cast<Alumno*>(Object_Compare);
-	// Verificar si la conversión a Alumno fue exitosa
-	if (Alumno_Compare != nullptr) {
-		// Comparar los números de cuenta de los alumnos
-		if (Alumno_Compare->Cuenta == this->Cuenta) {
-			return true;
+	if (dynamic_cast<Alumno*>(Object_Compare)) {
+		Alumno* Alumno_Compare = dynamic_cast<Alumno*>(Object_Compare);
+		// Verificar si la conversión a Alumno fue exitosa
+		if (Alumno_Compare != nullptr) {
+			// Comparar los números de cuenta de los alumnos
+			if (Alumno_Compare->Cuenta == this->Cuenta) {
+				return true;
+			}
 		}
 	}
 	return false;
@@ -41,4 +43,20 @@ bool Alumno::equals(Object* Object_Compare) {
 
 Object* Alumno::copy() {
 	return NULL;
+}
+
+string Alumno::getCuenta() {
+	return Cuenta;
+}
+
+string Alumno::getNombre() {
+	return Nombre;
+}
+
+void Alumno::setNombre(string nombre) {
+	this->Nombre = nombre;
+}
+
+void Alumno::setCuenta(string cuenta) {
+	this->Cuenta = cuenta;
 }

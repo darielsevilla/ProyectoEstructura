@@ -10,7 +10,24 @@
 #include "ArrayStack.h"
 #include "ArrayQueue.h"
 #include "Alumno.h"
+//validacionYesNo(string) -> valida que la string enviada sea 'y', 'Y','n', 'N'. en caso de que sea cualquiera de esos, retorna true. De otra forma retorna false.
+bool validacionYesNo(string parametro) {
+	if (parametro.size() != 1 || (parametro.at(0) != 'n' && parametro.at(0) != 'N' && parametro.at(0) != 'y' && parametro.at(0) != 'Y')) return false;
+	return true;
 
+}
+//castNumber(string, int&, int, int) -> recibe una string, verifica que es un numero y lo almacena en la direccion en memoria de la variable enviada. en caso de que no lo sea, o que este fuera del rango establecido, retornada falso. de otro modo retorna verdadero
+bool castNumber(string recibido, int& var, int lowest, int highest) {
+	for (char c : recibido) {
+		if (!isdigit(c)) {
+			return false;
+		}
+	}
+
+	var = stoi(recibido);
+	if (var < lowest || var > highest) return false;
+	return true;
+}
 //Revisa que los valores sea solamente numeros
 bool isNumber(string recibido) {
 	for (char c : recibido) {
@@ -35,11 +52,13 @@ bool isRepeat(Lista* list, string numeroDeCuenta) {
 }
 //listsMenu() -> metodo void que corre las operaciones del menu de listas
 void listsMenu() {
+	string buffer;
+	int posicion = 0;
 	int opcion = 0;
 	Lista* list = NULL;
 	while (opcion != 3) {
 		string eleccion = "\n\n\033[33m>>>> MENÚ TIPOS DE LISTAS <<<<\033[0m\n 1) Trabajar con ArrayList\n 2) Trabajar con LinkedList\n 3) Volver a menú principal\n\033[33m- Ingrese Opción del Menú: \033[0m";
-		while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
+		while (cout << eleccion && (cin >> buffer) && !castNumber(buffer, opcion, 1, 3)) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -61,6 +80,7 @@ void listsMenu() {
 		//sub menu de opciones
 		if (opcion != 3) {
 			int menu = 0;
+			
 			string sub = "\n\n\033[33m--> OPERACIONES EN LISTAS <--\033[0m\n";
 			sub += "  1) Insertar Elemento\n";
 			sub += "  2) Imprimir Elementos\n";
@@ -75,7 +95,7 @@ void listsMenu() {
 			sub += "\033[33m- Ingrese Opción del Menú: \033[0m";
 
 			do {
-				while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
+				while (cout << sub && (cin >> buffer) && !castNumber(buffer,menu, 1, 10)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\033[31m"; // Cambio Color a Rojo
@@ -92,25 +112,36 @@ void listsMenu() {
 				case 1: {
 					string nombreAlumno;
 					string cuentaAlumno;
-					cin.clear();
-					cin.ignore();
-					cout << "\n Ingrese el nombre del estudiante: " << endl;
-					getline(cin, nombreAlumno);
-
-					cout << "Ingrese el numero de cuenta del estudiante: " << endl;
-					cin >> cuentaAlumno;
-
-					while (!isNumber(cuentaAlumno) || isRepeat(list, cuentaAlumno))
-					{
-						cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
-						cout << "Ingrese el Número de Cuenta del Alumno: ";
+					
+					bool repeat = true;
+					do {
+						cin.clear();
+						cin.ignore();
+						cout << "\nIngrese el nombre del estudiante: ";
+						getline(cin, nombreAlumno);
+						cout << "Ingrese el numero de cuenta del estudiante: ";
 						cin >> cuentaAlumno;
-					}
 
-					estudiante = new Alumno(nombreAlumno, cuentaAlumno);
+						while (!isNumber(cuentaAlumno) || isRepeat(list, cuentaAlumno))
+						{
+							cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
+							cout << "Ingrese el Número de Cuenta del Alumno: ";
+							cin >> cuentaAlumno;
+						}
 
-					list->append(estudiante);
-					cout << "Alumno agregado correctamente" << endl;
+						estudiante = new Alumno(nombreAlumno, cuentaAlumno);
+						
+						while (cout << "Ingrese posicion de alumno: " && cin >> buffer && !castNumber(buffer, posicion, 1, list->getSize() + 1))
+							cout << "\n*Ingrese posicion dentro del rango*\n";
+
+						list->inserta(estudiante, posicion);
+
+						while (cout << "\nDesea ingresar de nuevo? [y/n] : " && cin >> buffer&& !validacionYesNo(buffer)) {
+							cout << "\n*Ingrese un 'y' o 'n'*";
+						}
+						if (buffer.at(0) == 'n' || buffer.at(0) == 'N') repeat = false;
+						
+					} while (repeat);
 				}//Inserta
 					  break;
 				case 2: {
@@ -162,7 +193,7 @@ void listsMenu() {
 				case 5: {
 					printf("\n");
 					if (list->isEmpty()) cout << "La lista se encuentra vacia actualmente" << endl;
-					else cout << "La lista contiene elementos" << endl;
+					else printf("La lista contiene %d elementos\n", list->getSize());
 
 				}//Ver si la lista esta vacia
 					  break;
@@ -243,10 +274,12 @@ void listsMenu() {
 void stackMenu() {
 	int opcion = 0;
 	TDAPila* stack = NULL;
+	string buffer;
 	//eleccion de tipo de pila
 	do {
 		string eleccion = "\nMenú Tipo de Pila\n 1. Trabajar con ArrayStack\n 2. Trabajar con LinkedStack\n 3. Volver a menú principal\nIngrese opción: ";
-		while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
+		
+		while (cout << eleccion && (cin >> buffer) && !castNumber(buffer, opcion, 1,3)) {
 			cin.clear();
 			cout << "\n*Ingrese opción valida*\n";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -273,7 +306,8 @@ void stackMenu() {
 
 			//validacion subMenu
 			do {
-				while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 7)) {
+				
+				while (cout << sub && (cin >> buffer) && !castNumber(buffer, menu, 1, 7)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\n*Ingrese valor valido*\n";
@@ -513,9 +547,9 @@ int main() {
 		cout << "\033[33m"; // Cambio Color a Anaranjado
 		cout << "========== MENU PRINCIPAL ==========\n";
 		cout << "\033[0m";
-
+		string buffer;
 		string mensajeMenu = "  1) Trabajar con Listas\n  2) Trabajar con Pilas\n  3) Trabajar con Colas\n  4) Salir\n\033[33m- Ingrese Opción del Menú: \033[0m";
-		while (cout << mensajeMenu && (!(cin >> opcion) || opcion < 1 || opcion > 4)) {
+		while (cout << mensajeMenu && (cin >> buffer) && !castNumber(buffer, opcion, 1, 4)) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 

@@ -37,13 +37,20 @@ bool isRepeat(Lista* list, string numeroDeCuenta) {
 void listsMenu() {
 	int opcion = 0;
 	Lista* list = NULL;
-	while (opcion != 3)
-	{
-		string eleccion = "\nMenú Tipo de Lista\n 1. Trabajar con ArrayList\n 2. Trabajar con Linked List\n 3. Volver a menú principal\nIngrese opción: ";
+	while (opcion != 3) {
+		string eleccion = "\n\n\033[33m>>>> MENÚ TIPOS DE LISTAS <<<<\033[0m\n 1) Trabajar con ArrayList\n 2) Trabajar con LinkedList\n 3) Volver a menú principal\n\n\033[33m- Ingrese Opción del Menú: \033[0m";
 		while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
 			cin.clear();
-			cout << "\n*Ingrese opción valida*\n";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			
+			
+			cout << "\033[31m"; // Cambio Color a Rojo
+			cout << "ERROR 404 - Something went wrong...\n"
+				<< "OPCIÓN INVÁLIDA!!!\n";
+			cout << "Ingrese una Nueva Opción Válida\n";
+			cout << "\033[0m"; // Cambio de Color a Blanco
+			
+			cin.clear();
 		}
 
 		if (opcion == 1)
@@ -54,7 +61,7 @@ void listsMenu() {
 		//sub menu de opciones
 		if (opcion != 3) {
 			int menu = 0;
-			string sub = "\nOperaciones de Listas:\n";
+			string sub = "\>> Operaciones de Listas <<\n";
 			sub += " 1. \Insertar Elemento\n";
 			sub += " 2. \Imprimir Elementos\n";
 			sub += " 3. Buscar Elemento\n";
@@ -71,7 +78,11 @@ void listsMenu() {
 				while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "\n*Ingrese valor valido*\n";
+					cout << "\033[31m"; // Cambio Color a Rojo
+					cout << "ERROR 404 - Something went wrong...\n"
+						<< "OPCIÓN INVÁLIDA!!!\n";
+					cout << "Ingrese una Nueva Opción Válida\n";
+					cout << "\033[0m"; // Cambio de Color a Blanco;
 				}
 
 				Object* estudiante = NULL;
@@ -222,6 +233,8 @@ void listsMenu() {
 					  break;
 				}
 			} while (menu != 10);
+			if (list)
+				delete list;
 		}
 	}//Llave while tipo de lista
 }//Llave metodo
@@ -325,7 +338,8 @@ void stackMenu() {
 					break;
 				}
 			} while (menu != 7);
-			if (stack) delete stack;
+			if (stack)
+				delete stack;
 		}
 
 
@@ -385,8 +399,6 @@ void queuesMenu() {
 						<< "Ingrese un Valor de Menu Válido..." << endl;
 
 				}
-
-
 
 				Object* student = new Alumno();
 				string Nombre = "";
@@ -480,8 +492,10 @@ void queuesMenu() {
 				}
 
 			} while (opcion != 7);
+			if (queue)
+				delete queue;
 		}
-	}while (opcionMenu != 4);
+	} while (opcionMenu != 4);
 }
 
 
@@ -489,17 +503,33 @@ int main() {
 	setlocale(LC_ALL, "spanish");
 	//validacion de entrada
 	int opcion;
+	cout << "\033[32m"; // Cambio Color a Verde
+	cout << "Dariel Sevilla - 12241006 \n"
+		<< "Josué Ham - 12141190 \n"
+		<< "Víctor Romero - 12211079\n\n";
+	cout << "\033[0m"; // Cambio de Color a Blanco
+
 	do {
-		string mensajeMenu = "\nMenu principal\n 1. Trabajar con Listas\n 2. Trabajar con Pilas\n 3. Trabajar con Colas\n 4. Salir\nIngrese opcion: ";
+		cout << "\033[33m"; // Cambio Color a Anaranjado
+		cout << "========== MENU PRINCIPAL ==========\n";
+		cout << "\033[0m";
+
+		string mensajeMenu = "  1) Trabajar con Listas\n  2) Trabajar con Pilas\n  3) Trabajar con Colas\n  4) Salir\n\033[33m- Ingrese Opción del Menú: \033[0m";
 		while (cout << mensajeMenu && (!(cin >> opcion) || opcion < 1 || opcion > 4)) {
-
-
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "\n*Ingrese opcion valida*\n";
+
+			cout << "\033[31m"; // Cambio Color a Anaranjado
+			cout << "ERROR 404 - Something went wrong...\n"
+				<<"OPCIÓN INVÁLIDA!!!\n";
+			cout << "Ingrese una Nueva Opción Válida\n\n";
+			cout << "\033[0m"; // Cambio de Color a Blanco
+			
+			cout << "\033[33m"; // Cambio Color a Anaranjado
+			cout << "========== MENU PRINCIPAL ==========\n";
+			cout << "\033[0m";
 
 			// || opcion < 1 || opcion > 4
-
 		}
 
 

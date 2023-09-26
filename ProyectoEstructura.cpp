@@ -291,7 +291,7 @@ void listsMenu() {
 					{
 						estudiante = new Alumno();
 						estudiante = list->siguiente(posicionElemento);
-						
+
 						cout << "\033[32mPosición Encontrada Correctamente!\033[0m\n" << endl;
 						cout << estudiante->toString();
 					}
@@ -363,12 +363,19 @@ void stackMenu() {
 	string buffer;
 	//eleccion de tipo de pila
 	do {
-		string eleccion = "\nMenú Tipo de Pila\n 1. Trabajar con ArrayStack\n 2. Trabajar con LinkedStack\n 3. Volver a menú principal\nIngrese opción: ";
+		string eleccion = "\n\033[33m>>>> MENÚ TIPOS DE PILAS <<<<\033[0m\n  1) Trabajar con ArrayStack\n  2) Trabajar con LinkedStack\n  3) Volver a menú principal\n\033[33m- Ingrese Opción del Menú: \033[0m";
 
 		while (cout << eleccion && (cin >> buffer) && !castNumber(buffer, opcion, 1, 3)) {
 			cin.clear();
-			cout << "\n*Ingrese opción valida*\n";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			cout << "\033[31m"; // Cambio Color a Rojo
+			cout << "ERROR 404 - Something went wrong...\n"
+				<< "OPCIÓN INVÁLIDA!!!\n";
+			cout << "Ingrese una Nueva Opción Válida\n";
+			cout << "\033[0m"; // Cambio de Color a Blanco
+
+			cin.clear();
 		}
 
 		//eleccion de stack
@@ -380,23 +387,26 @@ void stackMenu() {
 		//sub menu de opciones
 		if (opcion != 3) {
 			int menu;
-			string sub = "\nOperaciones de pilas:\n";
-			sub += " 1. \"Empujar\"(push)\n";
-			sub += " 2. \"Sacar\"(pop)\n";
-			sub += " 3. Ver Tope (top)\n";
-			sub += " 4. Verificar si está vacía\n";
-			sub += " 5. Imprimir elementos\n";
-			sub += " 6. Borrar todos los elementos\n";
-			sub += " 7. Regresar al Menú anterior\n";
-			sub += "Ingrese opción: ";
+			string sub = "\n\n\033[33m--> OPERACIONES EN PILAS <--\033[0m\n";
+			sub += "  1) \"Empujar\"(push)\n";
+			sub += "  2) \"Sacar\"(pop)\n";
+			sub += "  3) Ver Tope (top)\n";
+			sub += "  4) Verificar si está vacía\n";
+			sub += "  5) Imprimir elementos\n";
+			sub += "  6) Borrar todos los elementos\n";
+			sub += "  7) Regresar al Menú anterior\n";
+			sub += "\033[33mIngrese opción: \033[0m";
 
 			//validacion subMenu
 			do {
-
 				while (cout << sub && (cin >> buffer) && !castNumber(buffer, menu, 1, 7)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "\n*Ingrese valor valido*\n";
+					cout << "\033[31m"; // Cambio Color a Rojo
+					cout << "ERROR 404 - Something went wrong...\n"
+						<< "OPCIÓN INVÁLIDA!!!\n";
+					cout << "Ingrese una Nueva Opción Válida\n";
+					cout << "\033[0m"; // Cambio de Color a Blanco;
 				}
 
 				//variables necesarias
@@ -404,57 +414,105 @@ void stackMenu() {
 				Object* currentSymbol = NULL;
 				string validacionDeSimbolo;
 				//operaciones de pilas
+
 				switch (menu) {
 				case 1:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 1 - STACKS <";
+					cout << "\033[0m";
+
 					//ingresamiento de un caracter o simbolo (validado de que solo sea 1)
-					while (cout << "\nIngrese un simbolo para agregar a la pila: " && cin >> validacionDeSimbolo && validacionDeSimbolo.size() > 1) {
+					while (cout << "\n\033[33m>Ingrese un simbolo para agregar a la pila: \033[0m" && cin >> validacionDeSimbolo && validacionDeSimbolo.size() > 1) {
+						cout << "\033[31m"; // Cambio Color a Anaranjado
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "\n*Ingrese solo 1 caracter*\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-						cout << "\n*Ingrese solo 1 caracter*\n";
 					}
 					currentSymbol = new Simbolo(validacionDeSimbolo.at(0));
 					stack->push(currentSymbol);
+					cout << "\033[32mSimbolo Insertado correctamente!\033[0m" << endl;
 					break;
+
 				case 2:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 2 - STACKS <";
+					cout << "\033[0m";
+
 					//saca al ultimo elemento ingresado a la pila (validado para que imprima un mensaje diferente si la pila esta vacia)
 					if (!stack->isEmpty()) {
 						currentSymbol = stack->pop();
-						cout << "\nEl siguiente símbolo salio de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+						cout << "\n\033[33mEl siguiente símbolo salio de la pila : \033[0m" << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
 						delete currentSymbol;
 					}
 					else {
-						cout << "\nNo hay nada que sacar de la pila\n";
+						cout << "\033[31m"; // Cambio Color a Anaranjado
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "\nNo hay nada que sacar de la Pila\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 					break;
+
 				case 3:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 3 - STACKS <";
+					cout << "\033[0m";
+
 					//si existe, revisa el siguiente elemento a salir de la stack, sin sacarlo
 					if (!stack->isEmpty()) {
 						currentSymbol = stack->top();
-						cout << "\nEl siguiente símbolo esta a la cima de la pila : " << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
+						cout << "\n\033[33mEl siguiente símbolo esta a la cima de la pila : \033[0m" << dynamic_cast<Simbolo*>(currentSymbol)->getCaracter() << "\n";
 					}
 					else {
-						cout << "\nNo hay nada en la pila\n";
+						cout << "\n\033[31m"; // Cambio Color a Anaranjado
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "\nNo hay nada en la Pila\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 					break;
+
 				case 4:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 4 - STACKS <";
+					cout << "\033[0m";
+
 					//verificaciond e si esta vacia o no
-					if (stack->isEmpty()) cout << "\nEstá vacia\n";
-					else cout << "\nNo esta Vacia\n";
+					if (stack->isEmpty()) cout << "\033[32m\nLa Pila Está vacia\033[0m\n";
+					else cout << "\n\033[31mLa Pila No esta Vacia\033[0m\n";
 					break;
+
 				case 5:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 5 - STACKS <";
+					cout << "\033[0m";
+
 					//impresion de los elementos de la stack
 					if (!stack->isEmpty()) {
-						cout << "\nImpresión de elementos: \n";
+						cout << "\n\033[32m>>>>>>>>>>>>> Pila <<<<<<<<<<<<<\n\033[0m";
 						stack->print();
 					}
 					else {
+						cout << "\n\033[31m"; // Cambio Color a Anaranjado
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "\nNo hay elementos para imprimir\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 					break;
+
 				case 6:
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 6 - STACKS <";
+					cout << "\033[0m";
+
 					//vaciar la stack
 					stack->clear();
-					cout << "\nLos elementos de la lista han sido borrados\n";
+					cout << "\n\033[32mLos elementos de la lista han sido borrados correctamente!\033[0m" << endl;
 					break;
 				}
 			} while (menu != 7);

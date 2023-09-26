@@ -42,7 +42,7 @@ bool Alumno::equals(Object* Object_Compare) {
 }
 
 Object* Alumno::copy() {
-	return NULL;
+	return new Alumno(Nombre, Cuenta);
 }
 
 string Alumno::getCuenta() {

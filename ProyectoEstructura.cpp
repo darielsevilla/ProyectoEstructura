@@ -38,18 +38,18 @@ void listsMenu() {
 	int opcion = 0;
 	Lista* list = NULL;
 	while (opcion != 3) {
-		string eleccion = "\n\n\033[33m>>>> MENÚ TIPOS DE LISTAS <<<<\033[0m\n 1) Trabajar con ArrayList\n 2) Trabajar con LinkedList\n 3) Volver a menú principal\n\n\033[33m- Ingrese Opción del Menú: \033[0m";
+		string eleccion = "\n\n\033[33m>>>> MENÚ TIPOS DE LISTAS <<<<\033[0m\n 1) Trabajar con ArrayList\n 2) Trabajar con LinkedList\n 3) Volver a menú principal\n\033[33m- Ingrese Opción del Menú: \033[0m";
 		while (cout << eleccion && (!(cin >> opcion) || (opcion < 1 || opcion > 3))) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			
-			
+
+
 			cout << "\033[31m"; // Cambio Color a Rojo
 			cout << "ERROR 404 - Something went wrong...\n"
 				<< "OPCIÓN INVÁLIDA!!!\n";
 			cout << "Ingrese una Nueva Opción Válida\n";
 			cout << "\033[0m"; // Cambio de Color a Blanco
-			
+
 			cin.clear();
 		}
 
@@ -61,18 +61,18 @@ void listsMenu() {
 		//sub menu de opciones
 		if (opcion != 3) {
 			int menu = 0;
-			string sub = "\>> Operaciones de Listas <<\n";
-			sub += " 1. \Insertar Elemento\n";
-			sub += " 2. \Imprimir Elementos\n";
-			sub += " 3. Buscar Elemento\n";
-			sub += " 4. Borrar Elemento\n";
-			sub += " 5. Ver si está vacía\n";
-			sub += " 6. Obtener Elemento por Posición\n";
-			sub += " 7. Obtener Siguiente\n";
-			sub += " 8. Obtener Anterior\n";
-			sub += " 9. Borrar todos los Elementos (Anula)\n";
-			sub += " 10. Regresar al Menú Anterior\n";
-			sub += "Ingrese opción: ";
+			string sub = "\n\n\033[33m--> OPERACIONES EN LISTAS <--\033[0m\n";
+			sub += "  1) Insertar Elemento\n";
+			sub += "  2) Imprimir Elementos\n";
+			sub += "  3) Buscar Elemento\n";
+			sub += "  4) Borrar Elemento\n";
+			sub += "  5) Ver si está vacía\n";
+			sub += "  6) Obtener Elemento por Posición\n";
+			sub += "  7) Obtener Siguiente\n";
+			sub += "  8) Obtener Anterior\n";
+			sub += "  9) Borrar todos los Elementos (Anula)\n";
+			sub += "  10) Regresar al Menú Anterior\n";
+			sub += "\033[33m- Ingrese Opción del Menú: \033[0m";
 
 			do {
 				while (cout << sub && (!(cin >> menu) || menu < 1 || menu > 10)) {
@@ -94,7 +94,7 @@ void listsMenu() {
 					string cuentaAlumno;
 					cin.clear();
 					cin.ignore();
-					cout << "Ingrese el nombre del estudiante: " << endl;
+					cout << "\n Ingrese el nombre del estudiante: " << endl;
 					getline(cin, nombreAlumno);
 
 					cout << "Ingrese el numero de cuenta del estudiante: " << endl;
@@ -521,10 +521,10 @@ int main() {
 
 			cout << "\033[31m"; // Cambio Color a Anaranjado
 			cout << "ERROR 404 - Something went wrong...\n"
-				<<"OPCIÓN INVÁLIDA!!!\n";
+				<< "OPCIÓN INVÁLIDA!!!\n";
 			cout << "Ingrese una Nueva Opción Válida\n\n";
 			cout << "\033[0m"; // Cambio de Color a Blanco
-			
+
 			cout << "\033[33m"; // Cambio Color a Anaranjado
 			cout << "========== MENU PRINCIPAL ==========\n";
 			cout << "\033[0m";

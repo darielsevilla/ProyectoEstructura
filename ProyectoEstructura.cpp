@@ -531,12 +531,18 @@ void queuesMenu() {
 	TDACola* queue = NULL;
 
 	do {
-		string eleccion = "\nMENÚ TIPO DE COLA\n 1. Trabajar con ArrayQueue\n 2. Trabajar con LinkedQueue\n 3. Trabajar con CircularQueue\n 4. Volver a menú principal\nIngrese opción: ";
+		string eleccion = "\n\033[33m>>>> MENÚ TIPOS DE COLAS <<<<\033[0m\n  1) Trabajar con ArrayQueue\n  2) Trabajar con LinkedQueue\n  3) Trabajar con CircularQueue\n  4) Volver a menú principal\n\033[33m- Ingrese Opción del Menú: \033[0m";
 		while (cout << eleccion && (!(cin >> opcionMenu) || (opcionMenu < 1 || opcionMenu > 4))) {
 			cin.clear();
-			cout << "\nERROR - 404";
-			cout << "\nIngrese opción valida...\n";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			cout << "\033[31m"; // Cambio Color a Rojo
+			cout << "ERROR 404 - Something went wrong...\n"
+				<< "OPCIÓN INVÁLIDA!!!\n";
+			cout << "Ingrese una Nueva Opción Válida\n";
+			cout << "\033[0m"; // Cambio de Color a Blanco
+
+			cin.clear();
 		}
 
 		switch (opcionMenu) {
@@ -561,22 +567,23 @@ void queuesMenu() {
 		if (opcionMenu != 4) {
 			do {
 				string buffer;
-				string menuCola = " >> OPERACIONES DE COLAS <<\n";
-				menuCola += "1. Encolar (Queue)\n";
-				menuCola += "2. Desencolar (Dequeue)\n";
-				menuCola += "3. Ver Frente (Peek)\n";
-				menuCola += "4. Vacia\n";
-				menuCola += "6. Borrar los Elementos\n";
-				menuCola += "7. Regresar al Menu Anterior\n";
-				menuCola += "Ingrese una opcion: ";
+				string menuCola = " \n\n\033[33m--> OPERACIONES EN COLAS <--\033[0m\n";
+				menuCola += "  1) Encolar (Queue)\n";
+				menuCola += "  2) Desencolar (Dequeue)\n";
+				menuCola += "  3) Ver Frente (Peek)\n";
+				menuCola += "  4) Vacia\n";
+				menuCola += "  6) Borrar los Elementos\n";
+				menuCola += "  7) Regresar al Menu Anterior\n";
+				menuCola += "\033[33mIngrese opción: \033[0m";
 
 				while (cout << menuCola && (cin >> buffer) && !castNumber(buffer, opcion, 1, 7)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << endl
-						<< "ERROR - 404"
-						<< "Ingrese un Valor de Menu Válido..." << endl;
-
+					cout << "\n\033[31m"; // Cambio Color a Rojo
+					cout << "ERROR 404 - Something went wrong...\n"
+						<< "OPCIÓN INVÁLIDA!!!\n";
+					cout << "Ingrese una Nueva Opción Válida\n";
+					cout << "\033[0m"; // Cambio de Color a Blanco;
 				}
 
 				Object* student = new Alumno();
@@ -585,15 +592,19 @@ void queuesMenu() {
 
 				switch (opcion) {
 				case 1: { //Encolar (Queue)
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 1 - QUEUES <";
+					cout << "\033[0m";
+
 					cin.ignore();
-					cout << "\033[33m> Ingrese el nombre del alumno: \033[0m";
+					cout << "\n\033[33m> Ingrese el nombre del alumno: \033[0m";
 					cin >> Nombre;
 
 					cout << "\033[33m> Ingrese el numero de cuenta del alumno: \033[0m";
 					cin >> Cuenta;
 
 					while (!isNumber(Cuenta)) {
-						cout << "\033[31m"; // Cambio Color a Anaranjado
+						cout << "\n\033[31m"; // Cambio Color a Anaranjado
 						cout << "ERROR 404 - Something went wrong...\n"
 							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "Ingrese una Nueva Cuenta Válida\n\n";
@@ -604,49 +615,84 @@ void queuesMenu() {
 					}
 
 					queue->queue(new Alumno(Nombre, Cuenta));
-					cout << "\033[32mAlumno encolado correctamente!\033[0m\n\n" << endl;
+					cout << "\033[32mAlumno encolado correctamente!\033[0m" << endl;
 				}
 					  break;
 
 				case 2: { //Desencolar (Dequeue)
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 2 - QUEUES <";
+					cout << "\033[0m";
+
 					if (queue->isEmpty()) {
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cout << "\n\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "La Cola está vacia" << endl
 							<< "No Hay Nada Que Sacar..." << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco;
 					}
 					else {
-						cout << "El Alumno sacado de la cola es : " << queue->dequeue()->toString() << endl;
+						cout << "\n\033[33mEl Alumno sacado de la cola es : \033[0m" << queue->dequeue()->toString() << endl;
 					}
 				}
 					  break;
 
 
 				case 3: { //Ver Frente (Peek)
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 3 - QUEUES <";
+					cout << "\033[0m";
+
 					if (queue->isEmpty()) {
-						cout << "La Cola Está Vacía" << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cout << "\n\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "La Cola está vacia" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco;
 					}
 					else {
-						cout << "El elemento al frente de la cola es: " << queue->peek()->toString() << endl;
+						cout << "\n\033[33mEl elemento al frente de la cola es: \033[0m" << queue->peek()->toString() << endl;
 					}
 				}
 					  break;
 
 				case 4: { //Vacia
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 4 - QUEUES <";
+					cout << "\033[0m";
+
 					if (queue->isEmpty()) {
-						cout << "La Cola Está Vacía" << endl;
+						cout << "\n\033[32mLa Cola Está Vacía\033[0m" << endl;
 					}
 					else {
-						cout << "La Cola Tiene Elementos en Ella" << endl;
+						cout << "\n\033[31mLa Cola Tiene Elementos en Ella\033[0m" << endl;
 					}
 				}
 					  break;
 
 				case 5: { //Imprimir Elementos
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 5 - QUEUES <";
+					cout << "\033[0m";
+
 					if (queue->isEmpty()) {
-						cout << "La Cola Está Vacía" << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cout << "\n\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "La Cola está vacia" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco;
 					}
+
 					else {
 						cout << endl
-							<< ">>>>>>>>>>>>> Pila <<<<<<<<<<<<<" << endl;
+							<< "\n\033[32m>>>>>>>>>>>>> Cola <<<<<<<<<<<<<\n\033[0m";
 						queue->print();
 					}
 					break;
@@ -654,22 +700,34 @@ void queuesMenu() {
 					  break;
 
 				case 6: { //Borrar los Elementos
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 6 - QUEUES <";
+					cout << "\033[0m";
+
 					if (queue->isEmpty()) {
-						cout << "La Cola Está Vacía" << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cout << "\n\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "La Cola está vacia" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco;
 					}
 					else {
 						queue->clear();
-						cout << "Elementos han Sido Eliminados EXITOSAMENTE" << endl;
+						cout << "\n\033[31mElementos han Sido Eliminados EXITOSAMENTE\033[0m" << endl;
 					}
 				}
 					  break;
 
 				case 7: { //Regresar al Menu Anterior
-					cout << "Regresando al Menú Anterior" << endl;
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 7 - QUEUES <";
+					cout << "\033[0m";
+
+					cout << "\nRegresando al Menú Anterior..." << endl;
 				}
 					  break;
-
-
 				}
 
 			} while (opcion != 7);
@@ -687,11 +745,12 @@ int main() {
 	cout << "\033[32m"; // Cambio Color a Verde
 	cout << "Dariel Sevilla - 12241006 \n"
 		<< "Josué Ham - 12141190 \n"
-		<< "Víctor Romero - 12211079\n\n";
+		<< "Víctor Romero - 12211079\n";
 	cout << "\033[0m"; // Cambio de Color a Blanco
 
 	do {
 		cout << "\033[33m"; // Cambio Color a Anaranjado
+		cout << "\n---------------------------------------------------------------------------------------------------------------------\n\n";
 		cout << "========== MENU PRINCIPAL ==========\n";
 		cout << "\033[0m";
 		string buffer;

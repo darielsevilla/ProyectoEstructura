@@ -10,12 +10,14 @@
 #include "ArrayStack.h"
 #include "ArrayQueue.h"
 #include "Alumno.h"
+
 //validacionYesNo(string) -> valida que la string enviada sea 'y', 'Y','n', 'N'. en caso de que sea cualquiera de esos, retorna true. De otra forma retorna false.
 bool validacionYesNo(string parametro) {
 	if (parametro.size() != 1 || (parametro.at(0) != 'n' && parametro.at(0) != 'N' && parametro.at(0) != 'y' && parametro.at(0) != 'Y')) return false;
 	return true;
 
 }
+
 //castNumber(string, int&, int, int) -> recibe una string, verifica que es un numero y lo almacena en la direccion en memoria de la variable enviada. en caso de que no lo sea, o que este fuera del rango establecido, retornada falso. de otro modo retorna verdadero
 bool castNumber(string recibido, int& var, int lowest, int highest) {
 	for (char c : recibido) {
@@ -28,6 +30,7 @@ bool castNumber(string recibido, int& var, int lowest, int highest) {
 	if (var < lowest || var > highest) return false;
 	return true;
 }
+
 //Revisa que los valores sea solamente numeros
 bool isNumber(string recibido) {
 	for (char c : recibido) {
@@ -80,7 +83,7 @@ void listsMenu() {
 		//sub menu de opciones
 		if (opcion != 3) {
 			int menu = 0;
-			
+
 			string sub = "\n\n\033[33m--> OPERACIONES EN LISTAS <--\033[0m\n";
 			sub += "  1) Insertar Elemento\n";
 			sub += "  2) Imprimir Elementos\n";
@@ -95,7 +98,7 @@ void listsMenu() {
 			sub += "\033[33m- Ingrese Opción del Menú: \033[0m";
 
 			do {
-				while (cout << sub && (cin >> buffer) && !castNumber(buffer,menu, 1, 10)) {
+				while (cout << sub && (cin >> buffer) && !castNumber(buffer, menu, 1, 10)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\033[31m"; // Cambio Color a Rojo
@@ -110,131 +113,204 @@ void listsMenu() {
 				switch (menu)
 				{
 				case 1: {
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 1 - LISTS <";
+					cout << "\033[0m";
 					string nombreAlumno;
 					string cuentaAlumno;
-					
+
 					bool repeat = true;
 					do {
 						cin.clear();
 						cin.ignore();
-						cout << "\nIngrese el nombre del estudiante: ";
+						cout << "\n\033[33m> Ingrese el nombre del alumno: \033[0m";
 						getline(cin, nombreAlumno);
-						cout << "Ingrese el numero de cuenta del estudiante: ";
+						cout << "\033[33m> Ingrese el numero de cuenta del alumno: \033[0m";
 						cin >> cuentaAlumno;
 
-						while (!isNumber(cuentaAlumno) || isRepeat(list, cuentaAlumno))
-						{
-							cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
-							cout << "Ingrese el Número de Cuenta del Alumno: ";
+						while (!isNumber(cuentaAlumno) || isRepeat(list, cuentaAlumno)) {
+							cout << "\033[31m"; // Cambio Color a Anaranjado
+							cout << "ERROR 404 - Something went wrong...\n"
+								<< "OPCIÓN INVÁLIDA!!!\n";
+							cout << "Ingrese un Número de Cuenta Válida\n\n";
+							cout << "\033[0m"; // Cambio de Color a Blanco
+
+							cout << "\033[33m> Ingrese el numero de cuenta del alumno: \033[0m";
 							cin >> cuentaAlumno;
 						}
 
 						estudiante = new Alumno(nombreAlumno, cuentaAlumno);
-						
-						while (cout << "Ingrese posicion de alumno: " && cin >> buffer && !castNumber(buffer, posicion, 1, list->getSize() + 1))
-							cout << "\n*Ingrese posicion dentro del rango*\n";
+
+						while (cout << "\033[33m> Ingrese posicion de alumno: \033[0m" && cin >> buffer && !castNumber(buffer, posicion, 1, list->getSize() + 1)) {
+							cout << "\033[31m"; // Cambio Color a Anaranjado
+							cout << "ERROR 404 - Something went wrong...\n"
+								<< "OPCIÓN INVÁLIDA!!!\n";
+							cout << "Ingrese una Posición Válida\n\n";
+							cout << "\033[0m"; // Cambio de Color a Blanco
+						}
 
 						list->inserta(estudiante, posicion);
+						cout << "\033[32mAlumno Insertado correctamente!\033[0m" << endl;
 
-						while (cout << "\nDesea ingresar de nuevo? [y/n] : " && cin >> buffer&& !validacionYesNo(buffer)) {
-							cout << "\n*Ingrese un 'y' o 'n'*";
+						while (cout << "\n\033[33m>Desea ingresar de nuevo? [y/n] \033[0m: " && cin >> buffer && !validacionYesNo(buffer)) {
+							cout << "\033[31m"; // Cambio Color a Anaranjado
+							cout << "ERROR 404 - Something went wrong...\n"
+								<< "OPCIÓN INVÁLIDA!!!\n";
+							cout << "Ingrese un 'y' o 'n'\n";
+							cout << "\033[0m"; // Cambio de Color a Blanco
 						}
 						if (buffer.at(0) == 'n' || buffer.at(0) == 'N') repeat = false;
-						
+
 					} while (repeat);
 				}//Inserta
 					  break;
 				case 2: {
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 2 - LISTS <";
+					cout << "\033[0m";
+
+					cout << "\n\033[32m>>>>>>>>>>>>> Lista <<<<<<<<<<<<<\n\033[0m";
 					list->imprime();
+					cout << endl;
 				}//Imprimir Elementos
 					  break;
+
 				case 3: {
-					if (list->isEmpty())
-					{
-						cout << "No se pueden buscar alumnos debido a que la lista se encuentra vacia" << endl;
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 3 - LISTS <";
+					cout << "\033[0m";
+
+					if (list->isEmpty()) {
+						cout << "\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "No se pueden buscar alumnos debido a que la lista se encuentra vacia\n\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 					else {
 						printf("\n");
-						cout << "Ingrese el numero de cuenta que desea buscar: " << endl;
+						cout << "\033[33m> Ingrese el numero de cuenta que desea buscar: \033[0m" << endl;
 						string strCuenta;
 						cin >> strCuenta;
 
-						while (!isNumber(strCuenta))
-						{
-							cout << endl << "Ingrese un Número de Cuenta Válido." << endl;
-							cout << "Ingrese el Número de Cuenta del Alumno: ";
-							cin >> strCuenta;
+						while (!isNumber(strCuenta)) {
+							cout << "\033[31m"; // Cambio Color a Rojo
+							cout << "ERROR 404 - Something went wrong...\n"
+								<< "OPCIÓN INVÁLIDA!!!\n";
+							cout << "Ingrese un Número de Cuenta Válido.\n\n";
+							cout << "\033[0m"; // Cambio de Color a Blanco
+
+							printf("\n");
+							cout << "\033[33m> Ingrese el numero de cuenta que desea buscar: \033[0m" << endl;
+							string strCuenta;
 						}
 
 						int posicionBuscar = list->localiza(new Alumno("", strCuenta));
-						if (posicionBuscar > 0 && posicionBuscar <= list->getSize())
-						{
-							cout << "Alumno encontrado" << endl;
-							cout << list->recupera(posicionBuscar)->toString() << " Está en la Posición " << posicionBuscar << "." << endl;
+						if (posicionBuscar > 0 && posicionBuscar <= list->getSize()) {
+
+							cout << "\n\033[32mAlumno encontrado!\033[0m" << endl;
+							cout << list->recupera(posicionBuscar)->toString() << ", Posición -> " << posicionBuscar << "." << endl;
 						}
 					}
 				}//Buscar Elemento
 					  break;
+
 				case 4: {
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 4 - LISTS <";
+					cout << "\033[0m";
+
 					int posAEliminar = 0;
-					cout << "Ingrese la posicion que desea eliminar: " << endl;
+					cout << "\n\033[33m> Ingrese la posicion que desea eliminar: \033[0m" << endl;
 					cin >> posAEliminar;
 
 					if (posAEliminar > 0 && posAEliminar <= list->getSize())
 					{
 						list->suprime(posAEliminar);
-						cout << "Alumno eliminado correctamente" << endl;
+						cout << "\033[32mAlumno eliminado correctamente!\033[0m\n\n" << endl;
 					}
 					else {
-						cout << "Posicion fuera del rango" << endl;
+						cout << "\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "Posicion fuera del rango\n\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 				}//Borrar Elemento
 					  break;
+
 				case 5: {
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 5 - LISTS <";
+					cout << "\033[0m";
+
 					printf("\n");
-					if (list->isEmpty()) cout << "La lista se encuentra vacia actualmente" << endl;
+					if (list->isEmpty()) cout << "\033[31mLa lista se encuentra vacia actualmente\033[0m" << endl;
 					else printf("La lista contiene %d elementos\n", list->getSize());
 
 				}//Ver si la lista esta vacia
 					  break;
+
 				case 6: {
-					cout << "Ingrese la posicion en la que desea conseguir el elemento: " << endl;
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 6 - LISTS <";
+					cout << "\033[0m";
+
+					cout << "\n\033[33mIngrese la posicion en la que desea conseguir el elemento: \033[0m" << endl;
 					int posicionElemento;
 					cin >> posicionElemento;
-
 
 					if (posicionElemento > 0 && posicionElemento <= list->getSize())
 					{
 						estudiante = new Alumno();
 						estudiante = list->recupera(posicionElemento);
 
+						cout << "\033[32mPosición Encontrada Correctamente!\033[0m\n" << endl;
 						cout << estudiante->toString();
 					}
 					else {
+						cout << "\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "Posicion fuera del rango" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 				}//Obtener elementos por posicion
 					  break;
+
 				case 7: {
-					cout << "Ingrese la posicion en la que desea conseguir el elemento siguiente: " << endl;
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 7 - LISTS <";
+					cout << "\033[0m";
+
+					cout << "\n\033[33mIngrese la posicion en la que desea conseguir el elemento siguiente: \033[0m" << endl;
 					int posicionElemento;
 					cin >> posicionElemento;
-
 
 					if (posicionElemento > 0 && posicionElemento + 1 <= list->getSize())
 					{
 						estudiante = new Alumno();
 						estudiante = list->siguiente(posicionElemento);
-
+						
+						cout << "\033[32mPosición Encontrada Correctamente!\033[0m\n" << endl;
 						cout << estudiante->toString();
 					}
 					else {
+						cout << "\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "Posicion fuera del rango" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco
 					}
 				}//Obtener siguiente
 					  break;
+
 				case 8: {
-					cout << "Ingrese la posicion en la que desea conseguir el elemento siguiente: " << endl;
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 8 - LISTS <";
+					cout << "\033[0m";
+
+					cout << "\n\033[33mIngrese la posicion en la que desea conseguir el elemento siguiente: \033[0m" << endl;
 					int posicionElemento;
 					cin >> posicionElemento;
 
@@ -244,21 +320,31 @@ void listsMenu() {
 						estudiante = new Alumno();
 						estudiante = list->anterior(posicionElemento);
 
+						cout << "\033[32mPosición Encontrada Correctamente!\033[0m\n" << endl;
 						cout << estudiante->toString();
 					}
 					else {
+						cout << "\033[31m"; // Cambio Color a Rojo
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "Posicion fuera del rango" << endl;
+						cout << "\033[0m"; // Cambio de Color a Blanco
+
 					}
 				}//Obtener anterior
 					  break;
+
 				case 9: {
+					cout << "\n\033[36m";
+					cout << "> OPCIÓN 9 - LISTS <";
+					cout << "\033[0m";
 					if (!list->isEmpty())
 					{
 						list->anula();
-						cout << "Se ha eliminado la lista" << endl;
+						cout << "\n\033[32mSe ha Eliminado la Lista Correctamente!\033[0m\n" << endl;
 					}
 					else {
-						cout << "La lista ya se encuentra vacia" << endl;
+						cout << "\n\033[31mLa lista ya se encuentra Vacia!\033[0m\n" << endl;
 					}
 				}//Borrar todos los elementos(Anula)
 					  break;
@@ -278,8 +364,8 @@ void stackMenu() {
 	//eleccion de tipo de pila
 	do {
 		string eleccion = "\nMenú Tipo de Pila\n 1. Trabajar con ArrayStack\n 2. Trabajar con LinkedStack\n 3. Volver a menú principal\nIngrese opción: ";
-		
-		while (cout << eleccion && (cin >> buffer) && !castNumber(buffer, opcion, 1,3)) {
+
+		while (cout << eleccion && (cin >> buffer) && !castNumber(buffer, opcion, 1, 3)) {
 			cin.clear();
 			cout << "\n*Ingrese opción valida*\n";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -306,7 +392,7 @@ void stackMenu() {
 
 			//validacion subMenu
 			do {
-				
+
 				while (cout << sub && (cin >> buffer) && !castNumber(buffer, menu, 1, 7)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -416,6 +502,7 @@ void queuesMenu() {
 		int num;
 		if (opcionMenu != 4) {
 			do {
+				string buffer;
 				string menuCola = " >> OPERACIONES DE COLAS <<\n";
 				menuCola += "1. Encolar (Queue)\n";
 				menuCola += "2. Desencolar (Dequeue)\n";
@@ -425,7 +512,7 @@ void queuesMenu() {
 				menuCola += "7. Regresar al Menu Anterior\n";
 				menuCola += "Ingrese una opcion: ";
 
-				while (cout << menuCola && (!(cin >> opcion) || opcion < 1 || opcion > 7)) {
+				while (cout << menuCola && (cin >> buffer) && !castNumber(buffer, opcion, 1, 7)) {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << endl
@@ -441,23 +528,25 @@ void queuesMenu() {
 				switch (opcion) {
 				case 1: { //Encolar (Queue)
 					cin.ignore();
-					cout << "Ingrese el nombre del alumno: ";
+					cout << "\033[33m> Ingrese el nombre del alumno: \033[0m";
 					cin >> Nombre;
 
-					cout << "Ingrese el numero de cuenta del alumno: ";
+					cout << "\033[33m> Ingrese el numero de cuenta del alumno: \033[0m";
 					cin >> Cuenta;
 
 					while (!isNumber(Cuenta)) {
-						cout << endl << "ERROR - 404"
-							<< "Ingrese un Número de Cuenta Válido..." << endl
-							<< endl;
+						cout << "\033[31m"; // Cambio Color a Anaranjado
+						cout << "ERROR 404 - Something went wrong...\n"
+							<< "OPCIÓN INVÁLIDA!!!\n";
+						cout << "Ingrese una Nueva Cuenta Válida\n\n";
+						cout << "\033[0m"; // Cambio de Color a Blanco
 
-						cout << "Ingrese el Número de Cuenta del Alumno: ";
+						cout << "\033[33m> Ingrese el numero de cuenta del alumno: \033[0m";
 						cin >> Cuenta;
 					}
 
 					queue->queue(new Alumno(Nombre, Cuenta));
-					cout << "Alumno encolado correctamente" << endl;
+					cout << "\033[32mAlumno encolado correctamente!\033[0m\n\n" << endl;
 				}
 					  break;
 

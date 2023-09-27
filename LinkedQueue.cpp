@@ -29,7 +29,7 @@ Object* LinkedQueue::dequeue() {
 		if (first->getPrior()) first = first->getPrior();
 		delete oldFirst;
 		
-		first->setNext(NULL);
+		if(first) first->setNext(NULL);
 		
 		size--;
 		return returnObj;
@@ -58,7 +58,7 @@ void LinkedQueue::print() {
 		for (int i = 0; i < size; i++) {
 			if (!i) tempNode = first;
 			else tempNode = tempNode->getPrior();
-			cout << "[" << tempNode->getObj()->toString() << "]";
+			cout << "[" << tempNode->getObj()->toString() << "]\n";
 		}
 		cout << "\n";
 	}

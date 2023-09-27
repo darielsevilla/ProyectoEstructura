@@ -34,7 +34,7 @@ bool ArrayStack::isEmpty() {
 }
 
 void ArrayStack::print() {
-	for (int i = size - 1; i >= 0; i--) cout << "[" + array[i]->toString() + "]";
+	for (int i = size - 1; i >= 0; i--) cout << "[" + array[i]->toString() + "]\n";
 	cout << "\n";
 }
 

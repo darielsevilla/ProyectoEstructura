@@ -46,7 +46,7 @@ Object* ArrayQueue::peek() {
 }
 
 void ArrayQueue::print() {
-	for (int i = 0; i < size; i++) cout << "[" << array[i]->toString() << "]";
+	for (int i = 0; i < size; i++) cout << "[" << array[i]->toString() << "]\n";
 	cout << "\n";
 }
 

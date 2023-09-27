@@ -78,7 +78,7 @@ bool ArrayList::suprime(int pos) {
 }
 
 void ArrayList::imprime() {
-	for (int i = 0; i < size; i++) cout << "[" << array[i]->toString() << "]";
+	for (int i = 0; i < size; i++) cout << "[" << array[i]->toString() << "]\n";
 	cout << "\n";
 }
 
@@ -89,6 +89,8 @@ void ArrayList::append(Object* obj) {
 
 int ArrayList::localiza(Object* obj) {
 	for (int i = 0; i < size; i++) if (array[i]->equals(obj)) return i+1;
+	return -1;
+
 }
 
 Lista* ArrayList::localizaTodos(Object* obj) {

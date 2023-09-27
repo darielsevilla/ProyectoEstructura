@@ -56,7 +56,7 @@ void LinkedStack::print() {
 	for (int i = 0; i < size; i++) {
 		if (!i) temp = topNode;
 		else temp = temp->getNext();
-		cout << "[" << temp->getObj()->toString() << "]";
+		cout << "[" << temp->getObj()->toString() << "]\n";
 	}
 	cout << "\n";
 }

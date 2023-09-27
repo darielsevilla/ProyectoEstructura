@@ -74,8 +74,8 @@ void LinkedList::anula() {
 void LinkedList::imprime() {
 	if (!isEmpty()) {
 		Node* node = nodo;
-		cout << "[" << nodo->getObj()->toString() << "]";
-		while (node = node->getNext()) cout << "[" << node->getObj()->toString() << "]";
+		cout << "[" << nodo->getObj()->toString() << "]\n";
+		while (node = node->getNext()) cout << "[" << node->getObj()->toString() << "]\n";
 		
 		cout << "\n";
 	}

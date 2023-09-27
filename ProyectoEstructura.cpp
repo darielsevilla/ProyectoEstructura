@@ -209,6 +209,10 @@ void listsMenu() {
 
 							cout << "\n\033[32mAlumno encontrado!\033[0m" << endl;
 							cout << list->recupera(posicionBuscar)->toString() << ", Posición -> " << posicionBuscar << "." << endl;
+						}else{
+							cout << "\033[31m";
+							cout << "Numero de cuenta no encontrado\n";
+							cout << "\033[0m";
 						}
 					}
 				}//Buscar Elemento

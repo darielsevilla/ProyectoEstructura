@@ -41,7 +41,7 @@ void CircularQueue::print() {
 	for (int i = primero; ; i++) {
 		if (i == -1) break;
 		if (i >= capacidad) i = 0;
-		cout << "[" << array[i]->toString() << "]";
+		cout << "[" << array[i]->toString() << "]\n";
 		if (i == ultimo) break;
 	}
 }

@@ -571,6 +571,7 @@ void queuesMenu() {
 				menuCola += "  2) Desencolar (Dequeue)\n";
 				menuCola += "  3) Ver Frente (Peek)\n";
 				menuCola += "  4) Vacia\n";
+				menuCola += "  5) Imprime Cola\n";
 				menuCola += "  6) Borrar los Elementos\n";
 				menuCola += "  7) Regresar al Menu Anterior\n";
 				menuCola += "\033[33mIngrese opción: \033[0m";

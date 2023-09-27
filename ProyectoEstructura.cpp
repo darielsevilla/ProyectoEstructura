@@ -15,7 +15,6 @@
 bool validacionYesNo(string parametro) {
 	if (parametro.size() != 1 || (parametro.at(0) != 'n' && parametro.at(0) != 'N' && parametro.at(0) != 'y' && parametro.at(0) != 'Y')) return false;
 	return true;
-
 }
 
 //castNumber(string, int&, int, int) -> recibe una string, verifica que es un numero y lo almacena en la direccion en memoria de la variable enviada. en caso de que no lo sea, o que este fuera del rango establecido, retornada falso. de otro modo retorna verdadero
@@ -449,7 +448,7 @@ void stackMenu() {
 						delete currentSymbol;
 					}
 					else {
-						cout << "\033[31m"; // Cambio Color a Anaranjado
+						cout << "\n\033[31m"; // Cambio Color a Anaranjado
 						cout << "ERROR 404 - Something went wrong...\n"
 							<< "OPCIÓN INVÁLIDA!!!\n";
 						cout << "\nNo hay nada que sacar de la Pila\n";

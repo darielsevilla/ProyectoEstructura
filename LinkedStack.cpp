@@ -21,7 +21,7 @@ Object* LinkedStack::pop() {
 		Object* ptr = topNode->getObj()->copy();
 		
 		topNode = topNode->getNext();
-		topNode->setPrior(NULL);
+		if(topNode)topNode->setPrior(NULL);
 		retorno->setNext(NULL);
 		delete retorno;
 		size--;
